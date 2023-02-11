@@ -19,10 +19,30 @@ function search(query, type = 'search'){
 	});
 }
 
+function changeDialog(style, text) {
+	switch (style) {
+		case 1:
+			//Error dialog
+			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10";
+			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-red-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' aria-hidden='true'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z' /></svg>";
+
+			document.getElementById('dialog-title').innerText = "ERROR";
+			document.getElementById('dialog-text').innerText = text;
+
+			document.getElementById('dialog-button-cancel').style.display = 'none';
+
+			document.getElementById('dialog-button').className = "primaryButton inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium focus:outline-none sm:w-auto sm:text-sm";
+			document.getElementById('dialog-button').innerText = "Okay";
+			document.getElementById('dialog-button').onclick = () => hide("dialog");
+		break;
+	}
+}
+
 function displaySearchResults(results){
 	if(results.error !== 0){
 		if(results.error === 429){
-			document.getElementById('results').innerHTML = `<p class='text-red-500 font-md'>You are sending too many requests! Please wait before executing this action again.</p>`;
+			changeDialog(1, "You are sending too many requests! Please wait before executing this action again.");
+			show('dialog');
 		}
 		return;
 	}

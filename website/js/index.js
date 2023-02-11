@@ -74,7 +74,7 @@ function displaySearchResults(results){
 		<p class="secondaryColor text-sm">${results.data?.webPages.value[i].snippet}</p>`;
 
 		if(typeof(results.data.webPages.value[i].deepLinks) === 'object'){
-			html += `<ul role="list" class="mx-auto grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-8">`;
+			html += `<ul role="list" class="mx-auto grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-8 ml-6 mt-3">`;
 			for(let j = 0; j < results.data.webPages.value[i].deepLinks.length; j++){
 				html += `<li>
 				<a href="${results.data.webPages.value[i].deepLinks[j].url}" class="primaryColor text-lg">${results.data.webPages.value[i].deepLinks[j].name}</a>

@@ -1,0 +1,17 @@
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+body{
+	min-width: 500px;
+	min-height: 500px;
+	overflow-x: hidden;
+}
+
+body * {
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+select{
+	-webkit-appearance: none;
+}

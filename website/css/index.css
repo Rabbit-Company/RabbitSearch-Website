@@ -1,0 +1,23 @@
+body{
+	min-width: 350px;
+	min-height: 350px;
+	overflow-x: hidden;
+}
+
+body * {
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+input[type=number]{
+	-moz-appearance: textfield;
+}

@@ -1,18 +1,10 @@
-function detectLanguage(){
-	for(const language of navigator.languages){
-		if(Object.keys(lang).includes(language)){
-			localStorage.setItem('lang', language);
-			break;
-		}
-	}
-	if(readData('lang') == null || typeof(readData('lang')) == 'undefined') localStorage.setItem('lang', 'en');
-}
+function setup(){
+	let lang = localStorage.getItem('lang');
+	let theme = localStorage.getItem('theme');
+	if(theme == null || typeof(theme) == 'undefined') localStorage.setItem('theme', 'dark');
+	if(lang == null || typeof(lang) == 'undefined') localStorage.setItem('lang', navigator.language);
 
-function setTheme(){
-	if(readData('theme') == null || typeof(readData('theme')) == 'undefined') localStorage.setItem('theme', 'dark');
-	if(readData('lang') == null || typeof(readData('lang')) == 'undefined') detectLanguage();
-
-	if(!(["dark", "tokyoNight", "monokai", "solarizedDark", "light", "blue", "nord", "dracula", "gray"].includes(readData('theme')))) localStorage.setItem('theme', 'dark');
+	if(!(["dark", "tokyoNight", "monokai", "solarizedDark", "light", "blue", "nord", "dracula", "gray"].includes(theme))) localStorage.setItem('theme', 'dark');
 	document.getElementById("css-theme").href = "css/themes/" + localStorage.getItem('theme') + ".css";
 }
 
@@ -25,3 +17,5 @@ document.onkeydown = function(e) {
 }
 
 document.addEventListener('contextmenu', e => e.preventDefault());
+
+setup();

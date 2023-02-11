@@ -22,10 +22,10 @@ function displaySearchResults(results){
 
 	let html = "";
 
-	html += `<p class="secondaryColor">About ${results.data?.webPages?.totalEstimatedMatches} results</p>`;
+	html += `<p class="secondaryColor">About ${results.data?.webPages?.totalEstimatedMatches.toLocaleString()} results</p>`;
 
 	for(let i = 0; i < results.data?.webPages.value.length; i++){
-		html += `<p>${results.data?.webPages.value[i].name}</p>`;
+		html += `<p class="secondaryColor">${results.data?.webPages.value[i].name}</p>`;
 	}
 	document.getElementById('results').innerHTML = html;
 }

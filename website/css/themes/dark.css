@@ -153,6 +153,10 @@ input[type="checkbox"] {
 	border-color: #16191d !important;
 }
 
+.tertiaryBorderColor {
+	border-color: #4F46E5 !important;
+}
+
 /*
   Placeholder colors
 */

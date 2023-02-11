@@ -4,7 +4,7 @@ if(parms.get('q') !== null){
 }
 
 function search(query, type){
-	fetch('https://api.rabbitsearch.org?q=' + encodeURIComponent(query)).then(res => {
+	fetch('https://api.rabbitsearch.org/search?q=' + encodeURIComponent(query)).then(res => {
 		console.log(res.body);
 	});
 }

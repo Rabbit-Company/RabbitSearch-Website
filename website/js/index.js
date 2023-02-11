@@ -17,7 +17,9 @@ function search(query, type = 'search'){
 }
 
 function displayResults(data, type = 'search'){
+	console.log("Error: " + data.error);
 	if(data.error !== 0) return;
+	console.log("Type: " + typeof(data.webPages?.value));
 	if(typeof(data.webPages?.value) !== 'object') return;
 
 	console.log("Name: " + data.webPages.value[0].name);

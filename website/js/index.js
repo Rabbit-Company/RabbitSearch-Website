@@ -67,12 +67,24 @@ function displaySearchResults(results){
 
 	html += `<p class="secondaryColor text-sm">About ${results.data?.webPages?.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
 
-	for(let i = 0; i < results.data?.webPages.value.length; i++){
+	for(let i = 0; i < results.data.webPages.value.length; i++){
 		html += `<div>
-		<a href="${results.data?.webPages.value[i].url}" class="primaryColor text-lg">${results.data?.webPages.value[i].name}</a>
+		<a href="${results.data.webPages.value[i].url}" class="primaryColor text-lg">${results.data.webPages.value[i].name}</a>
 		<p class="text-green-600 text-base">${results.data?.webPages.value[i].url}</p>
-		<p class="secondaryColor text-sm">${results.data?.webPages.value[i].snippet}</p>
-		</div>`;
+		<p class="secondaryColor text-sm">${results.data?.webPages.value[i].snippet}</p>`;
+
+		if(typeof(results.data.webPages.value[i].deepLinks) === 'object'){
+			html += "<ul>";
+			for(let j = 0; j < results.data.webPages.value[i].deepLinks.length; j++){
+				html += `<li>
+				<a href="${results.data.webPages.value[i].deepLinks[j].url}" class="primaryColor text-lg">${results.data.webPages.value[i].deepLinks[j].name}</a>
+				<p class="secondaryColor text-sm">${results.data.webPages.value[i].deepLinks[j].snippet}</p>
+				</li>`;
+			}
+			html += "</ul>";
+		}
+
+		html += "</div>";
 	}
 	document.getElementById('results').innerHTML = html;
 }

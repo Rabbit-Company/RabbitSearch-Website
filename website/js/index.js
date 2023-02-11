@@ -22,7 +22,7 @@ function displaySearchResults(results){
 
 	let html = "";
 
-	html += `<p class="secondaryColor">About ${results.data?.webPages?.totalEstimatedMatches.toLocaleString()} results</p>`;
+	html += `<p class="secondaryColor text-sm">About ${results.data?.webPages?.totalEstimatedMatches.toLocaleString()} results</p>`;
 
 	for(let i = 0; i < results.data?.webPages.value.length; i++){
 		html += `<p class="secondaryColor">${results.data?.webPages.value[i].name}</p>`;

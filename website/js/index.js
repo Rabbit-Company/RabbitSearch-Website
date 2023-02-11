@@ -20,6 +20,7 @@ function displayResults(data, type = 'search'){
 	if(data.error !== 0) return;
 	if(typeof(data.webPages?.value) !== 'object') return;
 
+	console.log("Name: " + data.webPages.value[0].name);
 	let html = "";
 	for(let i = 0; i < data.webPages.value.length; i++){
 		html += `<p>${data.webPages.value[i].name}</p>`;

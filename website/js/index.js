@@ -55,7 +55,7 @@ function changeDialog(style, text) {
 function displaySearchResults(results){
 
 	if(results.error === 429){
-		changeDialog(2, "You are sending too many requests! Please wait before executing this action again.");
+		changeDialog(2, "You are sending too many requests! Please wait 10 seconds before executing this action again.");
 		show('dialog');
 		return;
 	}

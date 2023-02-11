@@ -35,17 +35,32 @@ function changeDialog(style, text) {
 			document.getElementById('dialog-button').innerText = "Okay";
 			document.getElementById('dialog-button').onclick = () => hide("dialog");
 		break;
+		case 2:
+			//Error dialog with page refresh
+			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10";
+			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-red-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' aria-hidden='true'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z' /></svg>";
+
+			document.getElementById('dialog-title').innerText = "ERROR";
+			document.getElementById('dialog-text').innerText = text;
+
+			document.getElementById('dialog-button-cancel').style.display = 'none';
+
+			document.getElementById('dialog-button').className = "primaryButton inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium focus:outline-none sm:w-auto sm:text-sm";
+			document.getElementById('dialog-button').innerText = "Okay";
+			document.getElementById('dialog-button').onclick = () => location.reload();
+		break;
 	}
 }
 
 function displaySearchResults(results){
-	if(results.error !== 0){
-		if(results.error === 429){
-			changeDialog(1, "You are sending too many requests! Please wait before executing this action again.");
-			show('dialog');
-		}
+
+	if(results.error === 429){
+		changeDialog(2, "You are sending too many requests! Please wait before executing this action again.");
+		show('dialog');
 		return;
 	}
+
+	if(results.error !== 0) return;
 	if(typeof(results.data?.webPages?.value) !== 'object') return;
 
 	let html = "";

@@ -78,7 +78,7 @@ function displaySearchResults(results){
 			for(let j = 0; j < results.data.webPages.value[i].deepLinks.length; j++){
 				html += `<li>
 				<a href="${results.data.webPages.value[i].deepLinks[j].url}" class="primaryColor text-base">${results.data.webPages.value[i].deepLinks[j].name}</a>
-				<p class="secondaryColor text-xs">${results.data.webPages.value[i].deepLinks[j].snippet}</p>
+				<p class="secondaryColor text-sm">${results.data.webPages.value[i].deepLinks[j].snippet}</p>
 				</li>`;
 			}
 			html += "</ul>";

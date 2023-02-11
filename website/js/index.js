@@ -20,7 +20,12 @@ function search(query, type = 'search'){
 }
 
 function displaySearchResults(results){
-	if(results.error !== 0) return;
+	if(results.error !== 0){
+		if(results.error === 429){
+			document.getElementById('results').innerHTML = `<p class='text-red-500 font-md'>You are sending too many requests! Please wait before executing this action again.</p>`;
+		}
+		return;
+	}
 	if(typeof(results.data?.webPages?.value) !== 'object') return;
 
 	let html = "";

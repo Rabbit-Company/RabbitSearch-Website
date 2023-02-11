@@ -1,6 +1,9 @@
+let querySpeed = 0;
+
 if(parms.get('q') !== null){
 	document.getElementById('search').value = parms.get('q');
 	search(parms.get('q')).then((data) => {
+		querySpeed = performance.now();
 		displaySearchResults(data);
 	}).catch((error) => {
 		console.log("Error: " + error);
@@ -22,7 +25,7 @@ function displaySearchResults(results){
 
 	let html = "";
 
-	html += `<p class="secondaryColor text-sm">About ${results.data?.webPages?.totalEstimatedMatches.toLocaleString()} results</p>`;
+	html += `<p class="secondaryColor text-sm">About ${results.data?.webPages?.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
 
 	for(let i = 0; i < results.data?.webPages.value.length; i++){
 		html += `<p class="secondaryColor">${results.data?.webPages.value[i].name}</p>`;

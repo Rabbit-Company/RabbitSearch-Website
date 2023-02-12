@@ -36,6 +36,7 @@ function search(query, type = 'general'){
 function displayResults(data, type = 'general'){
 	if(type === 'general') displayGeneralResults(data);
 	if(type === 'images') displayImageResults(data);
+	if(type === 'videos') displayVideoResults(data);
 }
 
 function changeDialog(style, text) {
@@ -141,6 +142,36 @@ function displayImageResults(results){
 			</div>
 			<p class="secondaryColor pointer-events-none mt-2 block truncate text-sm font-medium">${results.data.value[i].name}</p>
 			<p class="secondaryColor pointer-events-none block text-sm font-medium">${results.data.value[i].width}x${results.data.value[i].height} (${formatBytes(results.data.value[i].contentSize.split(' ')[0])})</p>
+		`;
+		html += "</li>";
+	}
+	html += "</ul>";
+	document.getElementById('results').innerHTML = html;
+}
+
+function displayVideoResults(results){
+	if(results.error === 429){
+		changeDialog(2, "You are sending too many requests! Please wait 10 seconds before executing this action again.");
+		show('dialog');
+		return;
+	}
+
+	if(results.error !== 0) return;
+	if(typeof(results.data?.value) !== 'object') return;
+	document.getElementById('results').className = "max-w-7xl w-full space-y-6";
+
+	let html = "";
+
+	html += `<p class="secondaryColor text-sm">About ${results.data?.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
+	html += `<ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">`;
+	for(let i = 0; i < results.data.value.length; i++){
+		html += `<li class="relative">`;
+		html += `
+			<div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+				${results.data.value[i].embedHtml}
+			</div>
+			<p class="secondaryColor pointer-events-none mt-2 block truncate text-sm font-medium">${results.data.value[i].name}</p>
+			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${results.data.value[i].description}</p>
 		`;
 		html += "</li>";
 	}

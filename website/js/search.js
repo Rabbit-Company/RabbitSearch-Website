@@ -18,7 +18,7 @@ if(category !== 'general'){
 
 search(query).then((data) => {
 	querySpeed = performance.now();
-	displayResults(data);
+	displayResults(data, category);
 }).catch((error) => {
 	console.log("Error: " + error);
 });
@@ -38,6 +38,7 @@ function search(query, type = 'general'){
 
 function displayResults(data, type = 'general'){
 	if(type === 'general') displayGeneralResults(data);
+	if(type === 'images') displayImageResults(data);
 }
 
 function changeDialog(style, text) {
@@ -107,6 +108,39 @@ function displayGeneralResults(results){
 
 		html += "</div>";
 	}
+	document.getElementById('results').innerHTML = html;
+}
+
+function displayImageResults(results){
+	if(results.error === 429){
+		changeDialog(2, "You are sending too many requests! Please wait 10 seconds before executing this action again.");
+		show('dialog');
+		return;
+	}
+
+	if(results.error !== 0) return;
+	if(typeof(results.data?.value) !== 'object') return;
+
+	let html = "";
+
+	html += `<p class="secondaryColor text-sm">About ${results.data?.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
+
+	html += `<ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">`;
+	for(let i = 0; i < results.data.value.length; i++){
+		html += `<li class="relative">`;
+		html += `
+			<div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+				<img src="${results.data.value[i].contentUrl}" alt="${results.data.value[i].name}" class="pointer-events-none object-cover group-hover:opacity-75">
+				<button type="button" class="absolute inset-0 focus:outline-none">
+					<span class="sr-only">View details for ${results.data.value[i].name}</span>
+				</button>
+			</div>
+			<p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">${results.data.value[i].name}</p>
+			<p class="pointer-events-none block text-sm font-medium text-gray-500">${results.data.value[i].contentSize}</p>
+		`;
+		html += "</li>";
+	}
+	html += "</ul>";
 	document.getElementById('results').innerHTML = html;
 }
 

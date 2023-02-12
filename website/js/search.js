@@ -23,9 +23,13 @@ search(query).then((data) => {
 	console.log("Error: " + error);
 });
 
-function search(query, type = 'search'){
+function search(query, type = 'general'){
+	let endpoint = "https://api.rabbitsearch.org/searchGeneral?q=";
+	if(type === 'images') endpoint = "https://api.rabbitsearch.org/searchImages?q=";
+	if(type === 'videos') endpoint = "https://api.rabbitsearch.org/searchVideos?q=";
+	if(type === 'news') endpoint = "https://api.rabbitsearch.org/searchNews?q=";
 	return new Promise((resolve, reject) => {
-		fetch('https://api.rabbitsearch.org/searchGeneral?q=' + encodeURIComponent(query))
+		fetch(endpoint + encodeURIComponent(query))
 		.then((response) => response.json())
 		.then((data) => resolve(data))
 		.catch((error) => reject(error));

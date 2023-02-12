@@ -168,10 +168,13 @@ function displayVideoResults(results){
 		html += `<li class="relative">`;
 		html += `
 			<div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
-				${results.data.value[i].embedHtml}
+				<img src="${results.data.value[i].thumbnailUrl}" alt="${results.data.value[i].name}" loading="lazy" class="pointer-events-none object-cover group-hover:opacity-75">
+				<button type="button" class="absolute inset-0 focus:outline-none">
+					<span class="sr-only">View details for ${results.data.value[i].name}</span>
+				</button>
 			</div>
-			<p class="secondaryColor pointer-events-none mt-2 block truncate text-sm font-medium">${results.data.value[i].name}</p>
-			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${results.data.value[i].description}</p>
+			<a href="${results.data.value[i].contentUrl}" class="secondaryColor pointer-events-none mt-2 block text-base font-medium truncate">${results.data.value[i].name}</a>
+			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${results.data.value[i].viewCount} views</p>
 		`;
 		html += "</li>";
 	}

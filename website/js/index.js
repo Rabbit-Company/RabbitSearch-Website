@@ -96,3 +96,13 @@ function displaySearchResults(results){
 	}
 	document.getElementById('results').innerHTML = html;
 }
+
+function changeCategory(category){
+	if(!categories.includes(category)) return;
+	location.assign('?q=' + parms.get('q') + '&c=' + category);
+}
+
+document.getElementById('category-general').addEventListener('click', () => changeCategory('general'));
+document.getElementById('category-images').addEventListener('click', () => changeCategory('images'));
+document.getElementById('category-videos').addEventListener('click', () => changeCategory('videos'));
+document.getElementById('category-news').addEventListener('click', () => changeCategory('news'));

@@ -135,8 +135,8 @@ function displayImageResults(results){
 					<span class="sr-only">View details for ${results.data.value[i].name}</span>
 				</button>
 			</div>
-			<p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">${results.data.value[i].name}</p>
-			<p class="pointer-events-none block text-sm font-medium text-gray-500">${results.data.value[i].contentSize}</p>
+			<p class="secondaryColor pointer-events-none mt-2 block truncate text-sm font-medium">${results.data.value[i].name}</p>
+			<p class="secondaryColor pointer-events-none block text-sm font-medium">${results.data.value[i].contentSize}</p>
 		`;
 		html += "</li>";
 	}

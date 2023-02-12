@@ -112,3 +112,5 @@ document.getElementById('category-general').addEventListener('click', () => chan
 document.getElementById('category-images').addEventListener('click', () => changeCategory('images'));
 document.getElementById('category-videos').addEventListener('click', () => changeCategory('videos'));
 document.getElementById('category-news').addEventListener('click', () => changeCategory('news'));
+
+document.getElementById('category').addEventListener('change', () => changeCategory(document.getElementById('category').value));

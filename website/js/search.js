@@ -173,7 +173,7 @@ function displayVideoResults(results){
 					<span class="sr-only">View details for ${results.data.value[i].name}</span>
 				</button>
 			</div>
-			<a href="${results.data.value[i].contentUrl}" class="secondaryColor pointer-events-none mt-2 block text-base font-medium truncate">${results.data.value[i].name}</a>
+			<a href="${results.data.value[i].contentUrl}" class="secondaryColor mt-2 block text-base font-medium truncate">${results.data.value[i].name}</a>
 			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${results.data.value[i].viewCount} views</p>
 		`;
 		html += "</li>";

@@ -16,7 +16,7 @@ if(category !== 'general'){
 	document.getElementById('category-' + category).className = "primaryColor tertiaryBorderColor whitespace-nowrap pb-2 px-1 border-b font-normal text-sm cursor-pointer";
 }
 
-search(query).then((data) => {
+search(query, category).then((data) => {
 	querySpeed = performance.now();
 	displayResults(data, category);
 }).catch((error) => {

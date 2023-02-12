@@ -163,7 +163,7 @@ function displayVideoResults(results){
 	let html = "";
 
 	html += `<p class="secondaryColor text-sm">About ${results.data?.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
-	html += `<ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">`;
+	html += `<ul role="list" class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-8">`;
 	for(let i = 0; i < results.data.value.length; i++){
 		html += `<li class="relative">`;
 		html += `

@@ -16,6 +16,8 @@ if(parms.get('q') !== null){
 	}).catch((error) => {
 		console.log("Error: " + error);
 	});
+}else{
+	location.assign('/');
 }
 
 function search(query, type = 'search'){

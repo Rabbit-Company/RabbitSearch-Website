@@ -18,7 +18,7 @@ if(category !== 'general'){
 
 search(query).then((data) => {
 	querySpeed = performance.now();
-	displaySearchResults(data);
+	displayResults(data);
 }).catch((error) => {
 	console.log("Error: " + error);
 });
@@ -34,6 +34,10 @@ function search(query, type = 'general'){
 		.then((data) => resolve(data))
 		.catch((error) => reject(error));
 	});
+}
+
+function displayResults(data, type = 'general'){
+	if(type === 'general') displayGeneralResults(data);
 }
 
 function changeDialog(style, text) {
@@ -69,7 +73,7 @@ function changeDialog(style, text) {
 	}
 }
 
-function displaySearchResults(results){
+function displayGeneralResults(results){
 
 	if(results.error === 429){
 		changeDialog(2, "You are sending too many requests! Please wait 10 seconds before executing this action again.");

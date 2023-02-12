@@ -22,7 +22,7 @@ if(parms.get('q') !== null){
 
 function search(query, type = 'search'){
 	return new Promise((resolve, reject) => {
-		fetch('https://api.rabbitsearch.org/search?q=' + encodeURIComponent(query))
+		fetch('https://api.rabbitsearch.org/searchGeneral?q=' + encodeURIComponent(query))
 		.then((response) => response.json())
 		.then((data) => resolve(data))
 		.catch((error) => reject(error));

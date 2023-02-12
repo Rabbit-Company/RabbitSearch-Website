@@ -11,6 +11,11 @@ if(!categories.includes(category)) category = 'general';
 document.getElementById('category').value = category;
 document.getElementById('search').value = query;
 
+if(category !== 'general'){
+	document.getElementById('category-general').className = "border-transparent secondaryColor whitespace-nowrap pb-2 px-1 border-b font-normal text-sm cursor-pointer";
+	document.getElementById('category-' + category).className = "primaryColor tertiaryBorderColor whitespace-nowrap pb-2 px-1 border-b font-normal text-sm cursor-pointer";
+}
+
 search(query).then((data) => {
 	querySpeed = performance.now();
 	displaySearchResults(data);

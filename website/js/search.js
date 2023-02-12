@@ -71,6 +71,13 @@ function changeDialog(style, text) {
 	}
 }
 
+const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+function formatBytes(x){
+  let l = 0, n = parseInt(x, 10) || 0;
+  while(n >= 1024 && ++l) n = n/1024;
+  return(n.toFixed(n < 10 && l > 0 ? 1 : 0) + ' ' + units[l]);
+}
+
 function displayGeneralResults(results){
 
 	if(results.error === 429){
@@ -133,7 +140,7 @@ function displayImageResults(results){
 				</button>
 			</div>
 			<p class="secondaryColor pointer-events-none mt-2 block truncate text-sm font-medium">${results.data.value[i].name}</p>
-			<p class="secondaryColor pointer-events-none block text-sm font-medium">${results.data.value[i].contentSize}</p>
+			<p class="secondaryColor pointer-events-none block text-sm font-medium">${results.data.value[i].width}x${results.data.value[i].height} (${formatBytes(results.data.value[i].contentSize.split(' ')[1])})</p>
 		`;
 		html += "</li>";
 	}

@@ -3,8 +3,9 @@ const categories = ['general', 'images', 'videos', 'news'];
 
 if(parms.get('c') !== null){
 	let category = parms.get('c');
-	if(!categories.includes(category)) return;
-	document.getElementById('category').value = category;
+	if(categories.includes(category)){
+		document.getElementById('category').value = category;
+	}
 }
 
 if(parms.get('q') !== null){

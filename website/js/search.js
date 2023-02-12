@@ -101,7 +101,11 @@ function displaySearchResults(results){
 
 function changeCategory(category){
 	if(!categories.includes(category)) return;
-	location.assign('?q=' + parms.get('q') + '&c=' + category);
+	if(category === 'general'){
+		location.assign('?q=' + parms.get('q'));
+	}else{
+		location.assign('?q=' + parms.get('q') + '&c=' + category);
+	}
 }
 
 document.getElementById('category-general').addEventListener('click', () => changeCategory('general'));

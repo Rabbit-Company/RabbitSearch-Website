@@ -89,7 +89,7 @@ function displayGeneralResults(results){
 	for(let i = 0; i < results.data.webPages.value.length; i++){
 		html += `<div>
 		<a href="${results.data.webPages.value[i].url}" class="primaryColor text-lg">${results.data.webPages.value[i].name}</a>
-		<p class="text-green-600 text-base">${results.data?.webPages.value[i].url}</p>
+		<p class="text-green-600 text-base truncate">${results.data?.webPages.value[i].url}</p>
 		<p class="secondaryColor text-sm">${results.data?.webPages.value[i].snippet}</p>`;
 
 		if(typeof(results.data.webPages.value[i].deepLinks) === 'object'){

@@ -1,12 +1,9 @@
 let querySpeed = 0;
 const query = parms.get('q');
-let category = parms.get('c');
+let category = localStorage.getItem('category');
 const categories = ['general', 'images', 'videos', 'news'];
 
 if(query === null) location.assign('/');
-
-if(category === null) category = 'general';
-if(!categories.includes(category)) category = 'general';
 
 document.getElementById('category').value = category;
 document.getElementById('search').value = query;
@@ -147,11 +144,8 @@ function displayImageResults(results){
 function changeCategory(selectedCategory){
 	if(!categories.includes(selectedCategory)) return;
 	if(selectedCategory === category) return;
-	if(selectedCategory === 'general'){
-		location.assign('?q=' + query);
-	}else{
-		location.assign('?q=' + query + '&c=' + selectedCategory);
-	}
+	localStorage.setItem('category', selectedCategory);
+	location.assign('?q=' + query);
 }
 
 document.getElementById('category-general').addEventListener('click', () => changeCategory('general'));

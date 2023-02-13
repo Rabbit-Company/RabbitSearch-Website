@@ -132,8 +132,8 @@ function displayGeneralResults(results){
 	html += `<p class="secondaryColor text-sm">About ${results.data?.webPages?.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
 
 	if(typeof(results.data.queryContext.alteredQuery) === 'string'){
-		html += `<p class="secondaryColor text-base">Including results for ${results.data.queryContext.originalQuery}.</p>`;
-		html += `<p class="secondaryColor text-sm">Do you want results only for ${results.data.queryContext.alteredQuery}?</p>`;
+		html += `<div><span class="secondaryColor text-base">Including results for ${results.data.queryContext.alteredQuery}.</span>`;
+		html += `<span class="secondaryColor text-sm">Do you want results only for ${results.data.queryContext.originalQuery}?</span></div>`;
 	}
 
 	for(let i = 0; i < results.data.webPages.value.length; i++){

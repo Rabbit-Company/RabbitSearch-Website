@@ -174,7 +174,7 @@ function displayImageResults(results){
 
 	if(results.data.queryContext.alterationDisplayQuery !== results.data.queryContext.originalQuery){
 		html += `<div><span class="secondaryColor text-base">Including results for <a href="?q=${results.data.queryContext.alterationDisplayQuery}" class="primaryColor text-base">${results.data.queryContext.alterationDisplayQuery}</a>.</span><br/>`;
-		html += `<span class="secondaryColor text-sm">Do you want results only for <a href="?q=&quot;${results.data.queryContext.originalQuery}&quot;" class="primaryColor text-sm">${results.data.queryContext.originalQuery}</a>?</span></div>`;
+		html += `<span class="secondaryColor text-sm">Do you want results only for <a href="?q=&quot;${escapeHtml(results.data.queryContext.originalQuery)}&quot;" class="primaryColor text-sm">${escapeHtml(results.data.queryContext.originalQuery)}</a>?</span></div>`;
 	}
 
 	html += `<ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">`;

@@ -132,8 +132,8 @@ function displayGeneralResults(results){
 	html += `<p class="secondaryColor text-sm">About ${results.data?.webPages?.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
 
 	if(typeof(results.data.queryContext.alteredQuery) === 'string'){
-		html += `<div><span class="secondaryColor text-base">Including results for <a href="?q=${results.data.queryContext.alteredQuery}" class="primaryColor text-base">${results.data.queryContext.alteredQuery}</a>.</span><br/>`;
-		html += `<span class="secondaryColor text-sm">Do you want results only for <a href="?q=${results.data.queryContext.originalQuery}" class="primaryColor text-sm">${results.data.queryContext.originalQuery}</a>?</span></div>`;
+		html += `<div><span class="tertiaryColor text-base">Including results for <a href="?q=${results.data.queryContext.alteredQuery}" class="primaryColor text-base">${results.data.queryContext.alteredQuery}</a>.</span><br/>`;
+		html += `<span class="tertiaryColor text-sm">Do you want results only for <a href="?q=${results.data.queryContext.originalQuery}" class="primaryColor text-sm">${results.data.queryContext.originalQuery}</a>?</span></div>`;
 	}
 
 	for(let i = 0; i < results.data.webPages.value.length; i++){

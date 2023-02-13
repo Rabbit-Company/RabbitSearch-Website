@@ -211,6 +211,12 @@ function displayVideoResults(results){
 	let html = "";
 
 	html += `<p class="secondaryColor text-sm">About ${results.data.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
+
+	if(results.data.queryContext.alterationDisplayQuery !== results.data.queryContext.originalQuery && !results.data.queryContext.originalQuery.startsWith('"')){
+		html += `<div><span class="secondaryColor text-base">Including results for <a href="?q=${results.data.queryContext.alterationDisplayQuery}" class="primaryColor text-base">${results.data.queryContext.alterationDisplayQuery}</a>.</span><br/>`;
+		html += `<span class="secondaryColor text-sm">Do you want results only for <a href="?q=&quot;${escapeHtml(results.data.queryContext.originalQuery)}&quot;" class="primaryColor text-sm">${escapeHtml(results.data.queryContext.originalQuery)}</a>?</span></div>`;
+	}
+
 	html += `<ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">`;
 	for(let i = 0; i < results.data.value.length; i++){
 		const name = escapeHtml(results.data.value[i].name);

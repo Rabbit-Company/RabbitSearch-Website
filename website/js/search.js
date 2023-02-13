@@ -133,7 +133,7 @@ function displayGeneralResults(results){
 
 	if(typeof(results.data.queryContext.alteredQuery) === 'string'){
 		html += `<div><span class="secondaryColor text-base">Including results for <a href="?q=${results.data.queryContext.alteredQuery}" class="primaryColor text-base">${results.data.queryContext.alteredQuery}</a>.</span><br/>`;
-		html += `<span class="secondaryColor text-sm">Do you want results only for <a href="?q=%2b${results.data.queryContext.originalQuery}" class="primaryColor text-sm">${results.data.queryContext.originalQuery}</a>?</span></div>`;
+		html += `<span class="secondaryColor text-sm">Do you want results only for <a href="?q=&quot;${results.data.queryContext.originalQuery}&quot;" class="primaryColor text-sm">${results.data.queryContext.originalQuery}</a>?</span></div>`;
 	}
 
 	for(let i = 0; i < results.data.webPages.value.length; i++){

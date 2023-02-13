@@ -203,7 +203,7 @@ function displayImageResults(results){
 					<img src="${escapeHtml(results.data.value[i].contentUrl)}" alt="${name}" loading="lazy" class="pointer-events-none object-cover group-hover:opacity-75">
 				</a>
 			</div>
-			<a href="${escapeHtml(results.data.value[i].hostPageUrl)}" class="secondaryColor pointer-events-none mt-2 block truncate text-sm font-medium">${name}</a>
+			<a href="${escapeHtml(results.data.value[i].hostPageUrl)}" class="tertiaryColor mt-2 block truncate text-sm font-medium">${name}</a>
 			<p class="secondaryColor pointer-events-none block text-sm font-medium">${results.data.value[i].width}x${results.data.value[i].height} (${formatBytes(results.data.value[i].contentSize.split(' ')[0])})</p>
 		`;
 		html += "</li>";

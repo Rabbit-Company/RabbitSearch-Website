@@ -12,3 +12,10 @@ function setup(){
 }
 
 setup();
+
+const affiliates = {
+	"https://www.hetzner.com/": "https://hetzner.cloud/?ref=Oflj8ToDXPAI",
+	"https://pocketbitcoin.com/": "https://pocketbitcoin.com/?ref=rabbit",
+	"https://www.ledger.com/": "https://shop.ledger.com/?r=8d93fca50c38",
+	"https://www.yubico.com/": "https://www.pjtra.com/t/8-12281-262494-191575"
+};

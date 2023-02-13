@@ -37,6 +37,7 @@ function displayResults(data, type = 'general'){
 	if(type === 'general') displayGeneralResults(data);
 	if(type === 'images') displayImageResults(data);
 	if(type === 'videos') displayVideoResults(data);
+	if(type === 'news') displayNewsResults(data);
 }
 
 function changeDialog(style, text) {
@@ -237,6 +238,30 @@ function displayVideoResults(results){
 		html += "</li>";
 	}
 	html += "</ul>";
+	document.getElementById('results').innerHTML = html;
+}
+
+function displayNewsResults(results){
+	if(results.error === 429){
+		changeDialog(2, "You are sending too many requests! Please wait 10 seconds before executing this action again.");
+		show('dialog');
+		return;
+	}
+
+	if(results.error !== 0) return;
+	if(typeof(results.data?.value) !== 'object') return;
+	document.getElementById('results').className = "max-w-7xl w-full space-y-6";
+
+	let html = "";
+
+	html += `<p class="secondaryColor text-sm">About ${results.data.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
+
+	for(let i = 0; i < results.data.value.length; i++){
+		html += `<div>
+		<a href="${escapeHtml(results.data.value[i].url)}" class="primaryColor text-lg">${escapeHtml(results.data.value[i].name)}</a>
+		<p class="secondaryColor text-sm">${escapeHtml(results.data.value[i].description)}</p>`;
+		html += "</div>";
+	}
 	document.getElementById('results').innerHTML = html;
 }
 

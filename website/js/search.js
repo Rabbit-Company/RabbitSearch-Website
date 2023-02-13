@@ -253,7 +253,8 @@ function displayNewsResults(results){
 
 	let html = "";
 
-	html += `<p class="secondaryColor text-sm">About ${results.data.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
+	let totalEstimatedMatches = results.data.totalEstimatedMatches || 0;
+	html += `<p class="secondaryColor text-sm">About ${totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
 
 	for(let i = 0; i < results.data.value.length; i++){
 		html += `<div>

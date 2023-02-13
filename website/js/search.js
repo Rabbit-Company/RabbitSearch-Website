@@ -182,6 +182,13 @@ function displayImageResults(results){
 
 	html += `<ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">`;
 	for(let i = 0; i < results.data.value.length; i++){
+
+		if(typeof(results.data.value[i].name) === 'undefined') continue;
+		if(typeof(results.data.value[i].contentUrl) === 'undefined') continue;
+		if(typeof(results.data.value[i].width) === 'undefined') continue;
+		if(typeof(results.data.value[i].height) === 'undefined') continue;
+		if(typeof(results.data.value[i].contentSize) === 'undefined') continue;
+
 		const name = escapeHtml(results.data.value[i].name);
 		html += `<li class="relative">`;
 		html += `

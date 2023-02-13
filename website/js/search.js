@@ -197,11 +197,10 @@ function displayImageResults(results){
 		const name = escapeHtml(results.data.value[i].name);
 		html += `<li class="relative">`;
 		html += `
-			<div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
-				<img src="${escapeHtml(results.data.value[i].contentUrl)}" alt="${name}" loading="lazy" class="pointer-events-none object-cover group-hover:opacity-75">
-				<button type="button" class="absolute inset-0 focus:outline-none">
-					<span class="sr-only">View details for ${name}</span>
-				</button>
+			<div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus:outline-none">
+				<a href="${escapeHtml(results.data.value[i].contentUrl)}">
+					<img src="${escapeHtml(results.data.value[i].contentUrl)}" alt="${name}" loading="lazy" class="pointer-events-none object-cover group-hover:opacity-75">
+				</a>
 			</div>
 			<p class="secondaryColor pointer-events-none mt-2 block truncate text-sm font-medium">${name}</p>
 			<p class="secondaryColor pointer-events-none block text-sm font-medium">${results.data.value[i].width}x${results.data.value[i].height} (${formatBytes(results.data.value[i].contentSize.split(' ')[0])})</p>

@@ -172,7 +172,7 @@ function displayImageResults(results){
 
 	html += `<p class="secondaryColor text-sm">About ${results.data.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
 
-	if(typeof(results.data.queryContext.alterationDisplayQuery) === 'string'){
+	if(results.data.queryContext.alterationDisplayQuery !== results.data.queryContext.originalQuery){
 		html += `<div><span class="secondaryColor text-base">Including results for <a href="?q=${results.data.queryContext.alterationDisplayQuery}" class="primaryColor text-base">${results.data.queryContext.alterationDisplayQuery}</a>.</span><br/>`;
 		html += `<span class="secondaryColor text-sm">Do you want results only for <a href="?q=&quot;${results.data.queryContext.originalQuery}&quot;" class="primaryColor text-sm">${results.data.queryContext.originalQuery}</a>?</span></div>`;
 	}

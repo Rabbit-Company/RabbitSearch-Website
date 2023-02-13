@@ -193,6 +193,7 @@ function displayImageResults(results){
 		if(typeof(results.data.value[i].width) === 'undefined') continue;
 		if(typeof(results.data.value[i].height) === 'undefined') continue;
 		if(typeof(results.data.value[i].contentSize) === 'undefined') continue;
+		if(typeof(results.data.value[i].hostPageUrl) === 'undefined') continue;
 
 		const name = escapeHtml(results.data.value[i].name);
 		html += `<li class="relative">`;
@@ -202,7 +203,7 @@ function displayImageResults(results){
 					<img src="${escapeHtml(results.data.value[i].contentUrl)}" alt="${name}" loading="lazy" class="pointer-events-none object-cover group-hover:opacity-75">
 				</a>
 			</div>
-			<p class="secondaryColor pointer-events-none mt-2 block truncate text-sm font-medium">${name}</p>
+			<a href="${escapeHtml(results.data.value[i].hostPageUrl)}" class="secondaryColor pointer-events-none mt-2 block truncate text-sm font-medium">${name}</a>
 			<p class="secondaryColor pointer-events-none block text-sm font-medium">${results.data.value[i].width}x${results.data.value[i].height} (${formatBytes(results.data.value[i].contentSize.split(' ')[0])})</p>
 		`;
 		html += "</li>";

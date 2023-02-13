@@ -211,6 +211,7 @@ function displayVideoResults(results){
 			</div>
 			<a href="${results.data.value[i].contentUrl}" class="tertiaryColor mt-2 block text-base font-medium truncate">${results.data.value[i].name}</a>
 			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${formatViews(results.data.value[i].viewCount)} views &middot; ${formatPublishedDate(results.data.value[i].datePublished)}</p>
+			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${results.data.value[i].publisher[0].name} &middot; ${results.data.value[i].creator.name}</p>
 		`;
 		html += "</li>";
 	}

@@ -117,6 +117,10 @@ function formatPublishedDate(x){
   }
 }
 
+function removeElement(id){
+	document.getElementById(id).remove();
+}
+
 function displayGeneralResults(results){
 
 	if(results.error === 429){
@@ -194,13 +198,14 @@ function displayImageResults(results){
 		if(typeof(results.data.value[i].height) === 'undefined') continue;
 		if(typeof(results.data.value[i].contentSize) === 'undefined') continue;
 		if(typeof(results.data.value[i].hostPageUrl) === 'undefined') continue;
+		if(typeof(results.data.value[i].imageId) === 'undefined') continue;
 
 		const name = escapeHtml(results.data.value[i].name);
-		html += `<li class="relative">`;
+		html += `<li id="${results.data.value[i].imageId}" class="relative">`;
 		html += `
 			<div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus:outline-none">
 				<a href="${escapeHtml(results.data.value[i].contentUrl)}">
-					<img src="${escapeHtml(results.data.value[i].contentUrl)}" alt="${name}" loading="lazy" class="searchedImage pointer-events-none object-cover group-hover:opacity-75">
+					<img src="${escapeHtml(results.data.value[i].contentUrl)}" alt="${name}" onerror="removeElement(${results.data.value[i].imageId})" loading="lazy" class="pointer-events-none object-cover group-hover:opacity-75">
 				</a>
 			</div>
 			<a href="${escapeHtml(results.data.value[i].hostPageUrl)}" class="tertiaryColor mt-2 block truncate text-sm font-medium">${name}</a>
@@ -210,9 +215,6 @@ function displayImageResults(results){
 	}
 	html += "</ul>";
 	document.getElementById('results').innerHTML = html;
-
-	let images = document.getElementsByClassName('searchedImage');
-	console.log(images);
 }
 
 function displayVideoResults(results){

@@ -226,8 +226,9 @@ function displayVideoResults(results){
 
 		if(typeof(results.data.value[i].name) === 'undefined') continue;
 		if(typeof(results.data.value[i].contentUrl) === 'undefined') continue;
-		if(typeof(results.data.value[i].publisher[0].name) === 'undefined') continue;
-		if(typeof(results.data.value[i].creator.name) === 'undefined') continue;
+		if(typeof(results.data.value[i].publisher[0]?.name) === 'undefined') continue;
+		if(typeof(results.data.value[i].creator?.name) === 'undefined') continue;
+		if(typeof(results.data.value[i].thumbnailUrl) === 'undefined') continue;
 		if(typeof(results.data.value[i].datePublished) === 'undefined') continue;
 
 		const name = escapeHtml(results.data.value[i].name);

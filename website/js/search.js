@@ -130,7 +130,8 @@ function displayGeneralResults(results){
 
 	let html = "";
 
-	html += `<p class="secondaryColor text-sm">About ${results.data.webPages.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
+	let totalEstimatedMatches = results.data.webPages.totalEstimatedMatches || 0;
+	html += `<p class="secondaryColor text-sm">About ${totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
 
 	if(typeof(results.data.queryContext.alteredQuery) === 'string'){
 		html += `<div><span class="secondaryColor text-base">Including results for <a href="?q=${results.data.queryContext.alteredQuery}" class="primaryColor text-base">${results.data.queryContext.alteredQuery}</a>.</span><br/>`;
@@ -171,7 +172,8 @@ function displayImageResults(results){
 
 	let html = "";
 
-	html += `<p class="secondaryColor text-sm">About ${results.data.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
+	let totalEstimatedMatches = results.data.totalEstimatedMatches || 0;
+	html += `<p class="secondaryColor text-sm">About ${totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
 
 	if(results.data.queryContext.alterationDisplayQuery !== results.data.queryContext.originalQuery && !results.data.queryContext.originalQuery.startsWith('"')){
 		html += `<div><span class="secondaryColor text-base">Including results for <a href="?q=${results.data.queryContext.alterationDisplayQuery}" class="primaryColor text-base">${results.data.queryContext.alterationDisplayQuery}</a>.</span><br/>`;
@@ -211,7 +213,8 @@ function displayVideoResults(results){
 
 	let html = "";
 
-	html += `<p class="secondaryColor text-sm">About ${results.data.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
+	let totalEstimatedMatches = results.data.totalEstimatedMatches || 0;
+	html += `<p class="secondaryColor text-sm">About ${totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
 
 	if(results.data.queryContext.alterationDisplayQuery !== results.data.queryContext.originalQuery && !results.data.queryContext.originalQuery.startsWith('"')){
 		html += `<div><span class="secondaryColor text-base">Including results for <a href="?q=${results.data.queryContext.alterationDisplayQuery}" class="primaryColor text-base">${results.data.queryContext.alterationDisplayQuery}</a>.</span><br/>`;

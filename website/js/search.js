@@ -188,7 +188,7 @@ function displayVideoResults(results){
 					<img src="${results.data.value[i].thumbnailUrl}" alt="${results.data.value[i].name}" loading="lazy" class="object-cover group-hover:opacity-75">
 				</a>
 			</div>
-			<a href="${results.data.value[i].contentUrl}" class="secondaryColor mt-2 block text-base font-medium truncate">${results.data.value[i].name}</a>
+			<a href="${results.data.value[i].contentUrl}" class="tertiaryColor mt-2 block text-base font-medium truncate">${results.data.value[i].name}</a>
 			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${formatViews(results.data.value[i].viewCount)} views</p>
 		`;
 		html += "</li>";

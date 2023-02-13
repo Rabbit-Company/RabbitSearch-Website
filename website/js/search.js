@@ -139,10 +139,15 @@ function displayGeneralResults(results){
 	}
 
 	for(let i = 0; i < results.data.webPages.value.length; i++){
+
+		if(typeof(results.data.webPages.value[i].name) === 'undefined') continue;
+		if(typeof(results.data.webPages.value[i].url) === 'undefined') continue;
+		if(typeof(results.data.webPages.value[i].snippet) === 'undefined') continue;
+
 		html += `<div>
 		<a href="${escapeHtml(results.data.webPages.value[i].url)}" class="primaryColor text-lg">${escapeHtml(results.data.webPages.value[i].name)}</a>
-		<p class="text-green-600 text-base truncate">${escapeHtml(results.data?.webPages.value[i].url)}</p>
-		<p class="secondaryColor text-sm">${escapeHtml(results.data?.webPages.value[i].snippet)}</p>`;
+		<p class="text-green-600 text-base truncate">${escapeHtml(results.data.webPages.value[i].url)}</p>
+		<p class="secondaryColor text-sm">${escapeHtml(results.data.webPages.value[i].snippet)}</p>`;
 
 		if(typeof(results.data.webPages.value[i].deepLinks) === 'object'){
 			html += `<ul role="list" class="mx-auto grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-4 ml-6 mt-3">`;

@@ -165,7 +165,12 @@ function displayImageResults(results){
 
 	let html = "";
 
-	html += `<p class="secondaryColor text-sm">About ${results.data?.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
+	html += `<p class="secondaryColor text-sm">About ${results.data.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
+
+	if(typeof(results.data.queryContext.alteredQuery) === 'string'){
+		html += `<p class="secondaryColor text-base">Including results for ${results.data.queryContext.originalQuery}.</p>`;
+		html += `<p class="secondaryColor text-sm">Do you want results only for ${results.data.queryContext.alteredQuery}?</p>`;
+	}
 
 	html += `<ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">`;
 	for(let i = 0; i < results.data.value.length; i++){

@@ -79,6 +79,22 @@ function formatBytes(x){
   return(n.toFixed(n < 10 && l > 0 ? 1 : 0) + ' ' + units[l]);
 }
 
+const viewRanges = [{ divider: 1E3, suffix: 'K'}, { divider: 1E6, suffix: 'M'}, { divider: 1E9, suffix: 'B' }];
+function formatViews(x){
+	for(let index = viewRanges.length - 1; index >= 0; index--){
+		if(x > viewRanges[index].divider){
+			let quotient = x / viewRanges[index].divider;
+			if(quotient < 10){
+				quotient = Math.floor(quotient * 10) / 10;
+			} else {
+				quotient = Math.floor(quotient);
+			}
+			return quotient.toString() + viewRanges[index].suffix;
+		}
+	}
+	return x.toString();
+}
+
 function displayGeneralResults(results){
 
 	if(results.error === 429){
@@ -173,7 +189,7 @@ function displayVideoResults(results){
 				</a>
 			</div>
 			<a href="${results.data.value[i].contentUrl}" class="secondaryColor mt-2 block text-base font-medium truncate">${results.data.value[i].name}</a>
-			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${results.data.value[i].viewCount} views</p>
+			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${formatViews(results.data.value[i].viewCount)} views</p>
 		`;
 		html += "</li>";
 	}

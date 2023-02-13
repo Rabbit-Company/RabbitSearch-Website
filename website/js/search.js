@@ -223,6 +223,13 @@ function displayVideoResults(results){
 
 	html += `<ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">`;
 	for(let i = 0; i < results.data.value.length; i++){
+
+		if(typeof(results.data.value[i].name) === 'undefined') continue;
+		if(typeof(results.data.value[i].contentUrl) === 'undefined') continue;
+		if(typeof(results.data.value[i].publisher[0].name) === 'undefined') continue;
+		if(typeof(results.data.value[i].creator.name) === 'undefined') continue;
+		if(typeof(results.data.value[i].datePublished) === 'undefined') continue;
+
 		const name = escapeHtml(results.data.value[i].name);
 		const url = results.data.value[i].contentUrl;
 		let viewCount = results.data.value[i].viewCount || 0;
@@ -236,7 +243,7 @@ function displayVideoResults(results){
 			</div>
 			<a href="${url}" class="tertiaryColor mt-2 block text-base font-medium truncate">${name}</a>
 			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${formatViews(viewCount)} views &middot; ${formatPublishedDate(results.data.value[i].datePublished)}</p>
-			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${results.data.value[i].publisher[0].name} &middot; ${escapeHtml(results.data.value[i].creator.name)}</p>
+			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${escapeHtml(results.data.value[i].publisher[0].name)} &middot; ${escapeHtml(results.data.value[i].creator.name)}</p>
 		`;
 		html += "</li>";
 	}

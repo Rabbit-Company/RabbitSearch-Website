@@ -258,7 +258,7 @@ function displayNewsResults(results){
 	for(let i = 0; i < results.data.value.length; i++){
 		html += `<div>
 		<a href="${escapeHtml(results.data.value[i].url)}" class="primaryColor text-lg">${escapeHtml(results.data.value[i].name)}</a>
-		<p class="secondaryColor text-base truncate">${escapeHtml(results.data.value[i].provider[0].name)} | ${formatPublishedDate(results.data.value[i].datePublished)}}</p>
+		<p class="secondaryColor text-base truncate">${escapeHtml(results.data.value[i].provider[0].name)} &middot; ${formatPublishedDate(results.data.value[i].datePublished)}</p>
 		<p class="secondaryColor text-sm">${escapeHtml(results.data.value[i].description)}</p>`;
 		html += "</div>";
 	}

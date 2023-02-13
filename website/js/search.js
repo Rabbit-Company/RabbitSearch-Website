@@ -174,15 +174,16 @@ function displayImageResults(results){
 
 	html += `<ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">`;
 	for(let i = 0; i < results.data.value.length; i++){
+		const name = escapeHtml(results.data.value[i].name);
 		html += `<li class="relative">`;
 		html += `
 			<div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
-				<img src="${results.data.value[i].contentUrl}" alt="${results.data.value[i].name}" loading="lazy" class="pointer-events-none object-cover group-hover:opacity-75">
+				<img src="${escapeHtml(results.data.value[i].contentUrl)}" alt="${name}" loading="lazy" class="pointer-events-none object-cover group-hover:opacity-75">
 				<button type="button" class="absolute inset-0 focus:outline-none">
-					<span class="sr-only">View details for ${results.data.value[i].name}</span>
+					<span class="sr-only">View details for ${name}</span>
 				</button>
 			</div>
-			<p class="secondaryColor pointer-events-none mt-2 block truncate text-sm font-medium">${results.data.value[i].name}</p>
+			<p class="secondaryColor pointer-events-none mt-2 block truncate text-sm font-medium">${name}</p>
 			<p class="secondaryColor pointer-events-none block text-sm font-medium">${results.data.value[i].width}x${results.data.value[i].height} (${formatBytes(results.data.value[i].contentSize.split(' ')[0])})</p>
 		`;
 		html += "</li>";
@@ -207,14 +208,16 @@ function displayVideoResults(results){
 	html += `<p class="secondaryColor text-sm">About ${results.data?.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
 	html += `<ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">`;
 	for(let i = 0; i < results.data.value.length; i++){
+		const name = escapeHtml(results.data.value[i].name);
+		const url = results.data.value[i].contentUrl;
 		html += `<li class="relative">`;
 		html += `
 			<div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus:outline-none">
-				<a href="${results.data.value[i].contentUrl}">
-					<img src="${results.data.value[i].thumbnailUrl}" alt="${results.data.value[i].name}" loading="lazy" class="object-cover group-hover:opacity-75">
+				<a href="${url}">
+					<img src="${escapeHtml(results.data.value[i].thumbnailUrl)}" alt="${name}" loading="lazy" class="object-cover group-hover:opacity-75">
 				</a>
 			</div>
-			<a href="${results.data.value[i].contentUrl}" class="tertiaryColor mt-2 block text-base font-medium truncate">${results.data.value[i].name}</a>
+			<a href="${url}" class="tertiaryColor mt-2 block text-base font-medium truncate">${name}</a>
 			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${formatViews(results.data.value[i].viewCount)} views &middot; ${formatPublishedDate(results.data.value[i].datePublished)}</p>
 			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${results.data.value[i].publisher[0].name} &middot; ${results.data.value[i].creator.name}</p>
 		`;

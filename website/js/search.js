@@ -138,15 +138,15 @@ function displayGeneralResults(results){
 
 	for(let i = 0; i < results.data.webPages.value.length; i++){
 		html += `<div>
-		<a href="${results.data.webPages.value[i].url}" class="primaryColor text-lg">${results.data.webPages.value[i].name}</a>
-		<p class="text-green-600 text-base truncate">${results.data?.webPages.value[i].url}</p>
-		<p class="secondaryColor text-sm">${results.data?.webPages.value[i].snippet}</p>`;
+		<a href="${escapeHtml(results.data.webPages.value[i].url)}" class="primaryColor text-lg">${escapeHtml(results.data.webPages.value[i].name)}</a>
+		<p class="text-green-600 text-base truncate">${escapeHtml(results.data?.webPages.value[i].url)}</p>
+		<p class="secondaryColor text-sm">${escapeHtml(results.data?.webPages.value[i].snippet)}</p>`;
 
 		if(typeof(results.data.webPages.value[i].deepLinks) === 'object'){
 			html += `<ul role="list" class="mx-auto grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-4 ml-6 mt-3">`;
 			for(let j = 0; j < results.data.webPages.value[i].deepLinks.length; j++){
-				html += `<li><a href="${results.data.webPages.value[i].deepLinks[j].url}" class="primaryColor text-base">${results.data.webPages.value[i].deepLinks[j].name}</a>`;
-				if(typeof(results.data.webPages.value[i].deepLinks[j].snippet) === 'string') html += `<p class="secondaryColor text-sm truncate">${results.data.webPages.value[i].deepLinks[j].snippet}</p>`;
+				html += `<li><a href="${escapeHtml(results.data.webPages.value[i].deepLinks[j].url)}" class="primaryColor text-base">${escapeHtml(results.data.webPages.value[i].deepLinks[j].name)}</a>`;
+				if(typeof(results.data.webPages.value[i].deepLinks[j].snippet) === 'string') html += `<p class="secondaryColor text-sm truncate">${escapeHtml(results.data.webPages.value[i].deepLinks[j].snippet)}</p>`;
 				html += "</li>";
 			}
 			html += "</ul>";

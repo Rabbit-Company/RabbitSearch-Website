@@ -268,6 +268,13 @@ function displayNewsResults(results){
 	html += `<p class="secondaryColor text-sm">About ${totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
 
 	for(let i = 0; i < results.data.value.length; i++){
+
+		if(typeof(results.data.value[i].name) === 'undefined') continue;
+		if(typeof(results.data.value[i].url) === 'undefined') continue;
+		if(typeof(results.data.value[i].description) === 'undefined') continue;
+		if(typeof(results.data.value[i].provider[0]?.name) === 'undefined') continue;
+		if(typeof(results.data.value[i].datePublished) === 'undefined') continue;
+
 		html += `<div>
 		<a href="${escapeHtml(results.data.value[i].url)}" class="primaryColor text-lg">${escapeHtml(results.data.value[i].name)}</a>
 		<p class="secondaryColor text-base truncate">${escapeHtml(results.data.value[i].provider[0].name)} &middot; ${formatPublishedDate(results.data.value[i].datePublished)}</p>

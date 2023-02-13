@@ -250,7 +250,6 @@ function displayNewsResults(results){
 
 	if(results.error !== 0) return;
 	if(typeof(results.data?.value) !== 'object') return;
-	document.getElementById('results').className = "max-w-7xl w-full space-y-6";
 
 	let html = "";
 

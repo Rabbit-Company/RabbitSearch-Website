@@ -129,7 +129,7 @@ function displayGeneralResults(results){
 
 	let html = "";
 
-	html += `<p class="secondaryColor text-sm">About ${results.data?.webPages?.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
+	html += `<p class="secondaryColor text-sm">About ${results.data.webPages.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
 
 	if(typeof(results.data.queryContext.alteredQuery) === 'string'){
 		html += `<div><span class="secondaryColor text-base">Including results for <a href="?q=${results.data.queryContext.alteredQuery}" class="primaryColor text-base">${results.data.queryContext.alteredQuery}</a>.</span><br/>`;
@@ -210,11 +210,13 @@ function displayVideoResults(results){
 
 	let html = "";
 
-	html += `<p class="secondaryColor text-sm">About ${results.data?.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
+	html += `<p class="secondaryColor text-sm">About ${results.data.totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
 	html += `<ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">`;
 	for(let i = 0; i < results.data.value.length; i++){
 		const name = escapeHtml(results.data.value[i].name);
 		const url = results.data.value[i].contentUrl;
+		let viewCount = results.data.value[i].viewCount || 0;
+
 		html += `<li class="relative">`;
 		html += `
 			<div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus:outline-none">
@@ -223,7 +225,7 @@ function displayVideoResults(results){
 				</a>
 			</div>
 			<a href="${url}" class="tertiaryColor mt-2 block text-base font-medium truncate">${name}</a>
-			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${formatViews(results.data.value[i].viewCount)} views &middot; ${formatPublishedDate(results.data.value[i].datePublished)}</p>
+			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${formatViews(viewCount)} views &middot; ${formatPublishedDate(results.data.value[i].datePublished)}</p>
 			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${results.data.value[i].publisher[0].name} &middot; ${escapeHtml(results.data.value[i].creator.name)}</p>
 		`;
 		html += "</li>";

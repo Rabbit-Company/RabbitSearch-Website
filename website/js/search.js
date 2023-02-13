@@ -95,6 +95,27 @@ function formatViews(x){
 	return x.toString();
 }
 
+function formatPublishedDate(x){
+  const date = (x instanceof Date) ? x : new Date(x);
+  const formatter = new Intl.RelativeTimeFormat('en');
+  const ranges = {
+    years: 31536000,
+    months: 2592000,
+    weeks: 604800,
+    days: 86400,
+    hours: 3600,
+    minutes: 60,
+    seconds: 1
+  };
+  const secondsElapsed = (date.getTime() - Date.now()) / 1000;
+  for(let key in ranges) {
+    if(ranges[key] < Math.abs(secondsElapsed)) {
+      const delta = secondsElapsed / ranges[key];
+      return formatter.format(Math.round(delta), key);
+    }
+  }
+}
+
 function displayGeneralResults(results){
 
 	if(results.error === 429){
@@ -189,7 +210,7 @@ function displayVideoResults(results){
 				</a>
 			</div>
 			<a href="${results.data.value[i].contentUrl}" class="tertiaryColor mt-2 block text-base font-medium truncate">${results.data.value[i].name}</a>
-			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${formatViews(results.data.value[i].viewCount)} views</p>
+			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${formatViews(results.data.value[i].viewCount)} views &middot; ${formatPublishedDate(results.data.value[i].datePublished)}</p>
 		`;
 		html += "</li>";
 	}

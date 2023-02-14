@@ -9,7 +9,7 @@ document.getElementById('category').value = category;
 document.getElementById('search').value = query;
 document.getElementById('safeSearch').value = safeSearch;
 document.getElementById('market').value = market;
-document.getElementById('affiliates').value = affiliates;
+document.getElementById('affiliates').value = affiliatesEnabled;
 document.getElementById('themes').value = localStorage.getItem('theme');
 
 if(category !== 'general'){

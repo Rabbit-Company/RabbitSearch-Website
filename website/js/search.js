@@ -26,7 +26,7 @@ function search(query, type = 'general'){
 	if(type === 'videos') endpoint = "https://api.rabbitsearch.org/searchVideos?q=";
 	if(type === 'news') endpoint = "https://api.rabbitsearch.org/searchNews?q=";
 	return new Promise((resolve, reject) => {
-		fetch(endpoint + encodeURIComponent(query))
+		fetch(endpoint + encodeURIComponent(query) + "&s=" + safeSearch)
 		.then((response) => response.json())
 		.then((data) => resolve(data))
 		.catch((error) => reject(error));

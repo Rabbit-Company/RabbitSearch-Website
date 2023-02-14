@@ -3,10 +3,12 @@ function setup(){
 	let theme = localStorage.getItem('theme');
 	let category = localStorage.getItem('category');
 	let affiliates = localStorage.getItem('affiliates');
+	let safeSearch = localStorage.getItem('safeSearch');
 	if(theme === null || typeof(theme) === 'undefined') localStorage.setItem('theme', 'dark');
 	if(lang === null || typeof(lang) === 'undefined') localStorage.setItem('lang', navigator.language);
 	if(category === null || typeof(category) === 'undefined') localStorage.setItem('category', 'general');
 	if(affiliates === null || typeof(affiliates) === 'undefined') localStorage.setItem('affiliates', 'true');
+	if(safeSearch === null || typeof(safeSearch) === 'undefined') localStorage.setItem('safeSearch', 'Moderate');
 
 	if(!(["dark", "tokyoNight", "monokai", "solarizedDark", "light", "blue", "nord", "dracula", "gray"].includes(theme))) localStorage.setItem('theme', 'dark');
 	if(!(["general", "images", "videos", "news"].includes(category))) localStorage.setItem('category', 'general');
@@ -15,6 +17,7 @@ function setup(){
 
 setup();
 
+const safeSearch = localStorage.getItem('safeSearch');
 const affiliatesEnabled = (localStorage.getItem('affiliates') === 'true');
 const affiliates = {
 	"https://www.hetzner.com/": "https://hetzner.cloud/?ref=Oflj8ToDXPAI",

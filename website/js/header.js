@@ -8,11 +8,12 @@ const availableMarkets = {
 	'en-CA': 'Canada (English)',
 	'fr-CA': 'Canada (French)',
 	'es-CL': 'Chile',
+	'zh-CN': "China",
 	'da-DK': 'Denmark',
 	'fi-FI': 'Finland',
 	'fr-FR': 'France',
 	'de-DE': 'Germany',
-	'zh-HK': 'Hong Kong SAR',
+	'zh-HK': 'Hong Kong',
 	'en-IN': 'India',
 	'en-ID': 'Indonesia',
 	'it-IT': 'Italy',
@@ -23,9 +24,8 @@ const availableMarkets = {
 	'nl-NL': 'Netherlands',
 	'en-NZ': 'New Zealand',
 	'no-NO': 'Norway',
-	'zh-CN': "People's republic of China",
+	'en-PH': 'Philippines',
 	'pl-PL': 'Poland',
-	'en-PH': 'Republic of the Philippines',
 	'ru-RU': 'Russia',
 	'en-ZA': 'South Africa',
 	'es-ES': 'Spain',
@@ -36,17 +36,31 @@ const availableMarkets = {
 	'tr-TR': 'Turkey',
 	'en-GB': 'United Kingdom',
 	'en-US': 'United States (English)',
-	'es-US': 'United States (Spanish)'
+	'es-US': 'United States (Spanish)',
+	'en-WW': 'All regions'
 };
 
+function chooseMarket(){
+	let found = false;
+	for(let i = 0; i < navigator.languages.length; i++){
+		let lang = navigator.language[i];
+		if(typeof(availableMarkets[lang]) !== 'undefined'){
+			localStorage.setItem('market', lang);
+			found = true;
+			break;
+		}
+	}
+	if(!found) localStorage.setItem('market', 'en-WW');
+}
+
 function setup(){
-	let lang = localStorage.getItem('lang');
+	let market = localStorage.getItem('market');
 	let theme = localStorage.getItem('theme');
 	let category = localStorage.getItem('category');
 	let affiliates = localStorage.getItem('affiliates');
 	let safeSearch = localStorage.getItem('safeSearch');
 	if(theme === null || typeof(theme) === 'undefined') localStorage.setItem('theme', 'dark');
-	if(lang === null || typeof(lang) === 'undefined') localStorage.setItem('lang', navigator.language);
+	if(market === null || typeof(market) === 'undefined') chooseMarket();
 	if(category === null || typeof(category) === 'undefined') localStorage.setItem('category', 'general');
 	if(affiliates === null || typeof(affiliates) === 'undefined') localStorage.setItem('affiliates', 'true');
 	if(safeSearch === null || typeof(safeSearch) === 'undefined') localStorage.setItem('safeSearch', 'Moderate');

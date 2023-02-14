@@ -318,9 +318,21 @@ function changeCategory(selectedCategory){
 	location.assign('?q=' + query);
 }
 
+function changeRegion(region){
+
+}
+
+function changeSafeSearch(mode){
+	if(!['Off', 'Moderate', 'Strict'].includes(mode)) return;
+	if(mode === safeSearch) return;
+	localStorage.setItem('safeSearch', mode);
+	location.assign('?q=' + query);
+}
+
 document.getElementById('category-general').addEventListener('click', () => changeCategory('general'));
 document.getElementById('category-images').addEventListener('click', () => changeCategory('images'));
 document.getElementById('category-videos').addEventListener('click', () => changeCategory('videos'));
 document.getElementById('category-news').addEventListener('click', () => changeCategory('news'));
 
 document.getElementById('category').addEventListener('change', () => changeCategory(document.getElementById('category').value));
+document.getElementById('safeSearch').addEventListener('change', () => changeSafeSearch(document.getElementById('safeSearch').value));

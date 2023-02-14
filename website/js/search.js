@@ -10,6 +10,7 @@ document.getElementById('search').value = query;
 document.getElementById('safeSearch').value = safeSearch;
 document.getElementById('market').value = market;
 document.getElementById('affiliates').value = affiliates;
+document.getElementById('themes').value = localStorage.getItem('theme');
 
 if(category !== 'general'){
 	document.getElementById('category-general').className = "border-transparent secondaryColor whitespace-nowrap pb-2 px-1 border-b font-normal text-sm cursor-pointer";

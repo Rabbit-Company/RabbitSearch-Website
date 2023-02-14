@@ -40,10 +40,10 @@ function animateButton(id, enabled){
 }
 
 function toggleMenu(){
-	if(document.getElementById("main-menu").className = "fixed inset-0 flex z-40"){
-		document.getElementById("main-menu").className = "fixed inset-0 flex z-40 hidden";
+	if(document.getElementById("main-menu").className === 'fixed inset-0 flex z-40'){
+		document.getElementById("main-menu").className = 'fixed inset-0 flex z-40 hidden';
 	}else{
-		document.getElementById("main-menu").className = "fixed inset-0 flex z-40";
+		document.getElementById("main-menu").className = 'fixed inset-0 flex z-40';
 	}
 }
 

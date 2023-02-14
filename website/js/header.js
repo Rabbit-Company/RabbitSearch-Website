@@ -43,7 +43,7 @@ const availableMarkets = {
 function chooseMarket(){
 	let found = false;
 	for(let i = 0; i < navigator.languages.length; i++){
-		let lang = navigator.language[i];
+		let lang = navigator.languages[i];
 		if(typeof(availableMarkets[lang]) !== 'undefined'){
 			localStorage.setItem('market', lang);
 			found = true;

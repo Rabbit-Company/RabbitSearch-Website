@@ -121,10 +121,6 @@ function formatPublishedDate(x){
   }
 }
 
-function removeElement(id){
-	document.getElementById(id).remove();
-}
-
 function displayGeneralResults(results){
 
 	if(results.error === 429){
@@ -215,11 +211,11 @@ function displayImageResults(results){
 		if(typeof(results.data.value[i].imageId) === 'undefined') continue;
 
 		const name = escapeHtml(results.data.value[i].name);
-		html += `<li id="IMAGE-${results.data.value[i].imageId}" class="relative">`;
+		html += `<li class="relative">`;
 		html += `
 			<div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus:outline-none">
 				<a href="${escapeHtml(results.data.value[i].contentUrl)}">
-					<img id="${results.data.value[i].imageId}" src="${escapeHtml(results.data.value[i].thumbnailUrl)}" alt="${name}" loading="lazy" class="loadedImages pointer-events-none object-cover group-hover:opacity-75">
+					<img src="${escapeHtml(results.data.value[i].thumbnailUrl)}" alt="${name}" loading="lazy" class="loadedImages pointer-events-none object-cover group-hover:opacity-75">
 				</a>
 			</div>
 			<a href="${escapeHtml(results.data.value[i].hostPageUrl)}" class="tertiaryColor mt-2 block truncate text-sm font-medium">${name}</a>
@@ -229,16 +225,6 @@ function displayImageResults(results){
 	}
 	html += "</ul>";
 	document.getElementById('results').innerHTML = html;
-	/*
-	let images = document.getElementsByClassName('loadedImages');
-	for(let i = 0; i < images.length; i++){
-		//if(images[i].naturalWidth === 0) removeElement('IMAGE-' + images[i].id);
-		images[i].addEventListener('error', () => {
-			removeElement('IMAGE-' + images[i].id);
-			console.log("Deleting image: " + images[i].id);
-		});
-	}
-	*/
 }
 
 function displayVideoResults(results){

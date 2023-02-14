@@ -40,12 +40,10 @@ function animateButton(id, enabled){
 }
 
 function toggleMenu(){
-	if(document.getElementById('mobile-menu').className == 'hidden pt-2 pb-3 space-y-1'){
-		document.getElementById('mobile-menu').className = 'pt-2 pb-3 space-y-1';
-		document.getElementById('mobile-menu-icon').innerHTML = "<path stroke='none' d='M0 0h24v24H0z' fill='none'/><line x1='7' y1='4' x2='17' y2='17' /><line x1='17' y1='4' x2='7' y2='17' />";
+	if(document.getElementById("main-menu-mobile").style.visibility == 'hidden'){
+		document.getElementById("main-menu-mobile").style.visibility = 'visible';
 	}else{
-		document.getElementById('mobile-menu').className = 'hidden pt-2 pb-3 space-y-1';
-		document.getElementById('mobile-menu-icon').innerHTML = "<path stroke='none' d='M0 0h24v24H0z' fill='none'/><line x1='4' y1='6' x2='20' y2='6' /><line x1='4' y1='12' x2='20' y2='12' /><line x1='4' y1='18' x2='20' y2='18' />";
+		document.getElementById("main-menu-mobile").style.visibility = 'hidden';
 	}
 }
 

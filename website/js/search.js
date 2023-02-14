@@ -334,6 +334,13 @@ function changeSafeSearch(mode){
 	location.assign('?q=' + query);
 }
 
+function changeAffiliates(enabled){
+	if(!['true', 'false'].includes(enabled)) return;
+	if(enabled === affiliates) return;
+	localStorage.setItem('affiliates', enabled);
+	location.assign('?q=' + query);
+}
+
 document.getElementById('category-general').addEventListener('click', () => changeCategory('general'));
 document.getElementById('category-images').addEventListener('click', () => changeCategory('images'));
 document.getElementById('category-videos').addEventListener('click', () => changeCategory('videos'));
@@ -342,3 +349,4 @@ document.getElementById('category-news').addEventListener('click', () => changeC
 document.getElementById('category').addEventListener('change', () => changeCategory(document.getElementById('category').value));
 document.getElementById('market').addEventListener('change', () => changeMarket(document.getElementById('market').value));
 document.getElementById('safeSearch').addEventListener('change', () => changeSafeSearch(document.getElementById('safeSearch').value));
+document.getElementById('affiliates').addEventListener('change', () => changeAffiliates(document.getElementById('affiliates').value));

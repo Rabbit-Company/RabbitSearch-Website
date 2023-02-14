@@ -7,6 +7,8 @@ if(query === null) location.assign('/');
 
 document.getElementById('category').value = category;
 document.getElementById('search').value = query;
+document.getElementById('safeSearch').value = safeSearch;
+document.getElementById('market').value = market;
 
 if(category !== 'general'){
 	document.getElementById('category-general').className = "border-transparent secondaryColor whitespace-nowrap pb-2 px-1 border-b font-normal text-sm cursor-pointer";
@@ -318,8 +320,11 @@ function changeCategory(selectedCategory){
 	location.assign('?q=' + query);
 }
 
-function changeRegion(region){
-
+function changeMarket(selectedMarket){
+	if(!Object.keys(availableMarkets).includes(selectedMarket)) return;
+	if(selectedMarket === market) return;
+	localStorage.setItem('market', selectedMarket);
+	location.assign('?q=' + query);
 }
 
 function changeSafeSearch(mode){
@@ -335,4 +340,5 @@ document.getElementById('category-videos').addEventListener('click', () => chang
 document.getElementById('category-news').addEventListener('click', () => changeCategory('news'));
 
 document.getElementById('category').addEventListener('change', () => changeCategory(document.getElementById('category').value));
+document.getElementById('market').addEventListener('change', () => changeMarket(document.getElementById('market').value));
 document.getElementById('safeSearch').addEventListener('change', () => changeSafeSearch(document.getElementById('safeSearch').value));

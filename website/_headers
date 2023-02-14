@@ -3,5 +3,5 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-XSS-Protection: 1; mode=block
-  Content-Security-Policy: script-src 'self' 'unsafe-inline'; base-uri 'none'; object-src 'none'; form-action 'self'; frame-ancestors 'none'; worker-src 'none';
+  Content-Security-Policy: script-src 'self'; base-uri 'none'; object-src 'none'; form-action 'self'; frame-ancestors 'none'; worker-src 'none';
   Permissions-Policy: interest-cohort=()

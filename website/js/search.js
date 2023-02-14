@@ -361,3 +361,4 @@ document.getElementById('affiliates').addEventListener('change', () => changeAff
 document.getElementById('themes').addEventListener('change', () => changeTheme(document.getElementById('themes').value));
 
 document.getElementById('close-main-menu-btn').addEventListener('click', () => toggleMenu());
+document.getElementById('category-settings').addEventListener('click', () => toggleMenu());

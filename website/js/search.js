@@ -359,3 +359,5 @@ document.getElementById('market').addEventListener('change', () => changeMarket(
 document.getElementById('safeSearch').addEventListener('change', () => changeSafeSearch(document.getElementById('safeSearch').value));
 document.getElementById('affiliates').addEventListener('change', () => changeAffiliates(document.getElementById('affiliates').value));
 document.getElementById('themes').addEventListener('change', () => changeTheme(document.getElementById('themes').value));
+
+document.getElementById('close-main-menu-btn').addEventListener('click', () => toggleMenu());

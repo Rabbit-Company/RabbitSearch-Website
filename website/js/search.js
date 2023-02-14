@@ -9,6 +9,7 @@ document.getElementById('category').value = category;
 document.getElementById('search').value = query;
 document.getElementById('safeSearch').value = safeSearch;
 document.getElementById('market').value = market;
+document.getElementById('affiliates') = affiliates;
 
 if(category !== 'general'){
 	document.getElementById('category-general').className = "border-transparent secondaryColor whitespace-nowrap pb-2 px-1 border-b font-normal text-sm cursor-pointer";
@@ -341,6 +342,12 @@ function changeAffiliates(enabled){
 	location.assign('?q=' + query);
 }
 
+function changeTheme(theme){
+	if(!(["dark", "tokyoNight", "monokai", "solarizedDark", "light", "blue", "nord", "dracula", "gray"].includes(theme))) localStorage.setItem('theme', 'dark');
+	localStorage.setItem('theme', theme);
+	document.getElementById("css-theme").href = "css/themes/" + localStorage.getItem('theme') + ".css";
+}
+
 document.getElementById('category-general').addEventListener('click', () => changeCategory('general'));
 document.getElementById('category-images').addEventListener('click', () => changeCategory('images'));
 document.getElementById('category-videos').addEventListener('click', () => changeCategory('videos'));
@@ -350,3 +357,4 @@ document.getElementById('category').addEventListener('change', () => changeCateg
 document.getElementById('market').addEventListener('change', () => changeMarket(document.getElementById('market').value));
 document.getElementById('safeSearch').addEventListener('change', () => changeSafeSearch(document.getElementById('safeSearch').value));
 document.getElementById('affiliates').addEventListener('change', () => changeAffiliates(document.getElementById('affiliates').value));
+document.getElementById('themes').addEventListener('change', () => changeTheme(document.getElementById('themes').value));

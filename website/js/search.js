@@ -232,8 +232,11 @@ function displayImageResults(results){
 
 	let images = document.getElementsByClassName('loadedImages');
 	for(let i = 0; i < images.length; i++){
-		if(images[i].naturalWidth === 0) removeElement('IMAGE-' + images[i].id);
-		//images[i].addEventListener('error', () => removeElement('IMAGE-' + images[i].id));
+		//if(images[i].naturalWidth === 0) removeElement('IMAGE-' + images[i].id);
+		images[i].addEventListener('error', () => {
+			removeElement('IMAGE-' + images[i].id);
+			console.log("Deleting image: " + images[i].id);
+		});
 	}
 }
 

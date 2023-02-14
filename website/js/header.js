@@ -72,6 +72,7 @@ function setup(){
 
 setup();
 
+const market = localStorage.getItem('market');
 const safeSearch = localStorage.getItem('safeSearch');
 const affiliatesEnabled = (localStorage.getItem('affiliates') === 'true');
 const affiliates = {

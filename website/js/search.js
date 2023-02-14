@@ -232,7 +232,7 @@ function displayImageResults(results){
 
 	let images = document.getElementsByClassName('loadedImages');
 	for(let i = 0; i < images.length; i++){
-		images[i].addEventListener('error', () => images[i].remove());
+		images[i].addEventListener('error', () => console.log("Failed to load image " + images[i].id));
 	}
 }
 

@@ -316,10 +316,6 @@ function displayNewsResults(results){
 }
 
 function changeCategory(selectedCategory){
-	if(selectedCategory === 'settings'){
-		toggleMenu();
-		return;
-	}
 	if(!categories.includes(selectedCategory)) return;
 	if(selectedCategory === category) return;
 	localStorage.setItem('category', selectedCategory);

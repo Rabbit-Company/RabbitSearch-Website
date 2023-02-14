@@ -219,7 +219,7 @@ function displayImageResults(results){
 		html += `
 			<div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus:outline-none">
 				<a href="${escapeHtml(results.data.value[i].contentUrl)}">
-					<img src="${escapeHtml(results.data.value[i].contentUrl)}" alt="${name}" onerror="removeElement('${results.data.value[i].imageId}')" loading="lazy" class="pointer-events-none object-cover group-hover:opacity-75">
+					<img src="${escapeHtml(results.data.value[i].contentUrl)}" alt="${name}" onerror="removeElement('${results.data.value[i].imageId}')" loading="lazy" class="loadedImages pointer-events-none object-cover group-hover:opacity-75">
 				</a>
 			</div>
 			<a href="${escapeHtml(results.data.value[i].hostPageUrl)}" class="tertiaryColor mt-2 block truncate text-sm font-medium">${name}</a>
@@ -229,6 +229,11 @@ function displayImageResults(results){
 	}
 	html += "</ul>";
 	document.getElementById('results').innerHTML = html;
+
+	let images = document.getElementsByClassName('loadedImages');
+	for(let i = 0; i < images.length; i++){
+		images[i].addEventListener('error', () => images[i].remove());
+	}
 }
 
 function displayVideoResults(results){

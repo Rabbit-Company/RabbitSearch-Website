@@ -80,5 +80,5 @@ const affiliates = {
 	"https://pocketbitcoin.com/": "https://pocketbitcoin.com/?ref=rabbit",
 	"https://www.ledger.com/": "https://shop.ledger.com/?r=8d93fca50c38",
 	"https://www.yubico.com/": "https://www.pjtra.com/t/8-12281-262494-191575",
-	"https://www.amazon.com/": "https://www.amazon.com?&linkCode=ll2&tag=rabbitcompany-20&linkId=049c03686ff31ffef90d8f01b56a4b0a&language=en_US&ref_=as_li_ss_tl"
+	"https://www.amazon.com/": "https://amzn.to/3K8oXHp"
 };

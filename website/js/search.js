@@ -176,6 +176,7 @@ function displayGeneralResults(results){
 		html += "</div>";
 	}
 	document.getElementById('results').innerHTML = html;
+	document.getElementById('footer').className = "primaryBackgroundColor";
 }
 
 function displayImageResults(results){
@@ -225,6 +226,7 @@ function displayImageResults(results){
 	}
 	html += "</ul>";
 	document.getElementById('results').innerHTML = html;
+	document.getElementById('footer').className = "primaryBackgroundColor";
 }
 
 function displayVideoResults(results){
@@ -277,6 +279,7 @@ function displayVideoResults(results){
 	}
 	html += "</ul>";
 	document.getElementById('results').innerHTML = html;
+	document.getElementById('footer').className = "primaryBackgroundColor";
 }
 
 function displayNewsResults(results){
@@ -309,6 +312,7 @@ function displayNewsResults(results){
 		html += "</div>";
 	}
 	document.getElementById('results').innerHTML = html;
+	document.getElementById('footer').className = "primaryBackgroundColor";
 }
 
 function changeCategory(selectedCategory){

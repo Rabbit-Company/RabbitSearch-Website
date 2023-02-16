@@ -79,9 +79,9 @@ function changeDialog(style, text) {
 
 const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 function formatBytes(x){
-  let l = 0, n = parseInt(x, 10) || 0;
-  while(n >= 1024 && ++l) n = n/1024;
-  return(n.toFixed(n < 10 && l > 0 ? 1 : 0) + ' ' + units[l]);
+	let l = 0, n = parseInt(x, 10) || 0;
+	while(n >= 1024 && ++l) n = n/1024;
+	return(n.toFixed(n < 10 && l > 0 ? 1 : 0) + ' ' + units[l]);
 }
 
 const viewRanges = [{ divider: 1E3, suffix: 'K'}, { divider: 1E6, suffix: 'M'}, { divider: 1E9, suffix: 'B' }];
@@ -101,24 +101,24 @@ function formatViews(x){
 }
 
 function formatPublishedDate(x){
-  const date = (x instanceof Date) ? x : new Date(x);
-  const formatter = new Intl.RelativeTimeFormat('en');
-  const ranges = {
-    years: 31536000,
-    months: 2592000,
-    weeks: 604800,
-    days: 86400,
-    hours: 3600,
-    minutes: 60,
-    seconds: 1
-  };
-  const secondsElapsed = (date.getTime() - Date.now()) / 1000;
-  for(let key in ranges) {
-    if(ranges[key] < Math.abs(secondsElapsed)) {
-      const delta = secondsElapsed / ranges[key];
-      return formatter.format(Math.round(delta), key);
-    }
-  }
+	const date = (x instanceof Date) ? x : new Date(x);
+	const formatter = new Intl.RelativeTimeFormat('en');
+	const ranges = {
+		years: 31536000,
+		months: 2592000,
+		weeks: 604800,
+		days: 86400,
+		hours: 3600,
+		minutes: 60,
+		seconds: 1
+	};
+	const secondsElapsed = (date.getTime() - Date.now()) / 1000;
+	for(let key in ranges) {
+		if(ranges[key] < Math.abs(secondsElapsed)) {
+			const delta = secondsElapsed / ranges[key];
+			return formatter.format(Math.round(delta), key);
+		}
+	}
 }
 
 function displayGeneralResults(results){

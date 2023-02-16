@@ -7,4 +7,22 @@
 	<priority>1.0</priority>
 </url>
 
+<url>
+  <loc>https://rabbitsearch.org/ToS</loc>
+  <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+
+<url>
+  <loc>https://rabbitsearch.org/PrivacyPolicy</loc>
+  <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+
+<url>
+  <loc>https://rabbitsearch.org/GDPR</loc>
+  <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+
 </urlset>

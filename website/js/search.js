@@ -266,7 +266,7 @@ function displayVideoResults(results){
 				</a>
 			</div>
 			<a href="${url}" class="tertiaryColor mt-2 block text-base font-medium truncate">${name}</a>
-			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${formatPublishedDate(results.data.items[i].snippet.publishTime)}</p>
+			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${formatPublishedDate(results.data.items[i].snippet.publishTime)} </p>
 			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">Youtube &middot; <a href="https://www.youtube.com/channel/${ results.data.items[i].snippet.channelId}">${escapeHtml(results.data.items[i].snippet.channelTitle)}</a></p>
 		`;
 		html += "</li>";

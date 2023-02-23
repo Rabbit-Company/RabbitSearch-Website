@@ -251,7 +251,7 @@ function displayVideoResults(results){
 		if(typeof(results.data.items[i].snippet.title) === 'undefined') continue;
 		if(typeof(results.data.items[i].id.videoId) === 'undefined') continue;
 		if(typeof(results.data.items[i].snippet.channelTitle) === 'undefined') continue;
-		if(typeof(results.data.items[i].thumbnails.high.url) === 'undefined') continue;
+		if(typeof(results.data.items[i].thumbnails?.default.url) === 'undefined') continue;
 		if(typeof(results.data.items[i].snippet.publishTime) === 'undefined') continue;
 
 		const name = escapeHtml(results.data.items[i].snippet.title);
@@ -261,7 +261,7 @@ function displayVideoResults(results){
 		html += `
 			<div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus:outline-none">
 				<a href="${url}">
-					<img src="${escapeHtml(results.data.items[i].thumbnails.high.url)}" alt="${name}" loading="lazy" class="object-cover group-hover:opacity-75">
+					<img src="${escapeHtml(results.data.items[i].thumbnails.default.url)}" alt="${name}" loading="lazy" class="object-cover group-hover:opacity-75">
 				</a>
 			</div>
 			<a href="${url}" class="tertiaryColor mt-2 block text-base font-medium truncate">${name}</a>

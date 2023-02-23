@@ -251,6 +251,7 @@ function displayVideoResults(results){
 		if(typeof(results.data.items[i].snippet.title) === 'undefined') continue;
 		if(typeof(results.data.items[i].id.videoId) === 'undefined') continue;
 		if(typeof(results.data.items[i].snippet.channelTitle) === 'undefined') continue;
+		if(typeof(results.data.items[i].snippet.channelId) === 'undefined') continue;
 		if(typeof(results.data.items[i].snippet.thumbnails.high.url) === 'undefined') continue;
 		if(typeof(results.data.items[i].snippet.publishTime) === 'undefined') continue;
 
@@ -266,7 +267,7 @@ function displayVideoResults(results){
 			</div>
 			<a href="${url}" class="tertiaryColor mt-2 block text-base font-medium truncate">${name}</a>
 			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${formatPublishedDate(results.data.items[i].snippet.publishTime)}</p>
-			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">Youtube &middot; ${escapeHtml(results.data.items[i].snippet.channelTitle)}</p>
+			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">Youtube &middot; <a href="https://www.youtube.com/channel/${ results.data.items[i].snippet.channelId}">${escapeHtml(results.data.items[i].snippet.channelTitle)}</a></p>
 		`;
 		html += "</li>";
 	}

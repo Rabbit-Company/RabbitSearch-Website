@@ -25,10 +25,10 @@ search(query, category).then((data) => {
 });
 
 function search(query, type = 'general'){
-	let endpoint = "https://api.rabbitsearch.org/searchGeneral?q=";
-	if(type === 'images') endpoint = "https://api.rabbitsearch.org/searchImages?q=";
-	if(type === 'videos') endpoint = "https://api.rabbitsearch.org/searchVideos?q=";
-	if(type === 'news') endpoint = "https://api.rabbitsearch.org/searchNews?q=";
+	let endpoint = "https://api.dev.rabbitsearch.org/searchGeneral?q=";
+	if(type === 'images') endpoint = "https://api.dev.rabbitsearch.org/searchImages?q=";
+	if(type === 'videos') endpoint = "https://api.dev.rabbitsearch.org/searchVideos?q=";
+	if(type === 'news') endpoint = "https://api.dev.rabbitsearch.org/searchNews?q=";
 	return new Promise((resolve, reject) => {
 		fetch(endpoint + encodeURIComponent(query) + "&s=" + safeSearch + "&m=" + market)
 		.then((response) => response.json())

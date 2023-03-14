@@ -13,11 +13,11 @@
 }
 
 .secondaryColor {
-	color: #6B7280 !important;
+	color: #6b7280 !important;
 }
 
 .tertiaryColor {
-	color: #FFFFFF !important;
+	color: #ffffff !important;
 }
 
 /*
@@ -45,17 +45,17 @@
 */
 
 .primaryButton {
-	background-color: #88c0d0 !important;
-	color: #FFFFFF !important;
+	background-color: #434c5e !important;
+	color: #ffffff !important;
 }
 
 .primaryButton:hover {
-	background-color: #7fbbcc !important;
+	background-color: #4c566a !important;
 }
 
 .successButton {
 	background-color: #a2bd8b !important;
-	color: #FFFFFF !important;
+	color: #ffffff !important;
 }
 
 .successButton:hover {
@@ -64,7 +64,7 @@
 
 .dangerButton {
 	background-color: #75647a !important;
-	color: #FFFFFF !important;
+	color: #ffffff !important;
 }
 
 .dangerButton:hover {
@@ -74,7 +74,7 @@
 .cancelButton {
 	background-color: #434c5e !important;
 	border-color: #3b4252 !important;
-	color: #FFFFFF !important;
+	color: #ffffff !important;
 }
 
 .cancelButton:hover {
@@ -87,13 +87,13 @@
 
 input {
 	background-color: #434c5e !important;
-	color: #FFFFFF !important;
+	color: #ffffff !important;
 	border-color: #3b4252 !important;
 }
 
 textarea {
 	background-color: #434c5e !important;
-	color: #FFFFFF !important;
+	color: #ffffff !important;
 	border-color: #3b4252 !important;
 }
 
@@ -111,27 +111,27 @@ input[type="checkbox"] {
 
 .mainMenuLink {
 	background-color: #3b4252 !important;
-	color: #6B7280 !important;
+	color: #6b7280 !important;
 }
 
 .mainMenuLink:hover {
-	color: #FFFFFF !important;
-	border-color: #D1D5DB !important;
+	color: #ffffff !important;
+	border-color: #d1d5db !important;
 }
 
 .mainMenuLinkSelected {
-	color: #FFFFFF !important;
+	color: #ffffff !important;
 	border-color: #88c0d0 !important;
 }
 
 .mainMenuMobileLink {
 	background-color: #3b4252 !important;
-	color: #FFFFFF !important;
+	color: #ffffff !important;
 }
 
 .mainMenuMobileLink:hover {
 	background-color: #434c5e !important;
-	border-color: #6B7280 !important;
+	border-color: #6b7280 !important;
 }
 
 .mainMenuMobileLinkSelected {
@@ -141,11 +141,11 @@ input[type="checkbox"] {
 }
 
 #main-menu-toggle-btn {
-	color: #9CA3AF !important;
+	color: #9ca3af !important;
 }
 
 #main-menu-toggle-btn:hover {
-	color: #6B7280 !important;
+	color: #6b7280 !important;
 	background-color: #434c5e !important;
 }
 
@@ -162,12 +162,12 @@ input[type="checkbox"] {
 */
 
 .primaryBorderColor::placeholder {
-	color: #6B7280;
+	color: #6b7280;
 	opacity: 1;
 }
 
 .primaryBorderColor::-ms-input-placeholder {
-	color: #6B7280;
+	color: #6b7280;
 	opacity: 1;
 }
 
@@ -176,7 +176,7 @@ input[type="checkbox"] {
 */
 
 .primaryStrokeColor {
-	stroke: #FFFFFF !important;
+	stroke: #ffffff !important;
 }
 
 /*

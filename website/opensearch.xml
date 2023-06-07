@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+  <ShortName>Rabbit Search</ShortName>
+  <LongName>Rabbit Search</LongName>
+  <Description>Rabbit Search is a privacy-focused meta search engine</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Image type="image/png">https://rabbitsearch.org/images/logo.png</Image>
+  <Url rel="results" type="text/html" method="GET" template="https://rabbitsearch.org/search?q={searchTerms}"/>
+  <Url rel="self" type="application/opensearchdescription+xml" method="GET" template="/opensearch.xml" />
+  <Query role="example" searchTerms="RabbitSearch" />
+  <moz:SearchForm>https://rabbitsearch.org</moz:SearchForm>
+</OpenSearchDescription>

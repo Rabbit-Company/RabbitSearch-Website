@@ -4,7 +4,7 @@
   <LongName>Rabbit Search</LongName>
   <Description>Rabbit Search is a privacy-focused meta search engine</Description>
   <InputEncoding>UTF-8</InputEncoding>
-  <Image type="image/png">https://rabbitsearch.org/images/logo.png</Image>
+  <Image type="image/png">https://rabbitsearch.org/images/icon.png</Image>
   <Url rel="results" type="text/html" method="GET" template="https://rabbitsearch.org/search?q={searchTerms}"/>
   <Url rel="self" type="application/opensearchdescription+xml" method="GET" template="/opensearch.xml" />
   <Query role="example" searchTerms="RabbitSearch" />

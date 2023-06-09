@@ -127,10 +127,11 @@ function displayGeneralResults(results){
 	}
 
 	if(results.error !== 0) return;
-	if(typeof(results.data?.webPages?.value) !== 'object') return;
+	if(typeof(results.data?.web?.results) !== 'object') return;
 
 	let html = "";
 
+	/*
 	let totalEstimatedMatches = results.data.webPages.totalEstimatedMatches || 0;
 	html += `<p class="secondaryColor text-sm">About ${totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
 
@@ -138,33 +139,34 @@ function displayGeneralResults(results){
 		html += `<div><span class="secondaryColor text-base">Including results for <a href="?q=${results.data.queryContext.alteredQuery}" class="primaryColor text-base">${results.data.queryContext.alteredQuery}</a>.</span><br/>`;
 		html += `<span class="secondaryColor text-sm">Do you want results only for <a href="?q=&quot;${results.data.queryContext.originalQuery}&quot;" class="primaryColor text-sm">${results.data.queryContext.originalQuery}</a>?</span></div>`;
 	}
+	*/
 
-	for(let i = 0; i < results.data.webPages.value.length; i++){
+	for(let i = 0; i < results.data.web.results.length; i++){
 
-		if(typeof(results.data.webPages.value[i].name) === 'undefined') continue;
-		if(typeof(results.data.webPages.value[i].url) === 'undefined') continue;
-		if(typeof(results.data.webPages.value[i].snippet) === 'undefined') continue;
+		if(typeof(results.data.web.results[i].title) === 'undefined') continue;
+		if(typeof(results.data.web.results[i].url) === 'undefined') continue;
+		if(typeof(results.data.web.results[i].description) === 'undefined') continue;
 
-		let url = results.data.webPages.value[i].url;
+		let url = results.data.web.results[i].url;
 		let niceURL = (url[url.length - 1] === '/') ? url.slice(0, -1) : url;
 
 		html += "<div>";
 		if(affiliatesEnabled && typeof(affiliates[url]) !== 'undefined'){
 			html += `<a href="${affiliates[url]}" class="primaryColor text-lg">
 			<svg xmlns="http://www.w3.org/2000/svg" class="text-amber-600 align-text-bottom inline h-5 w-5" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M5 7.2a2.2 2.2 0 0 1 2.2 -2.2h1a2.2 2.2 0 0 0 1.55 -.64l.7 -.7a2.2 2.2 0 0 1 3.12 0l.7 .7c.412 .41 .97 .64 1.55 .64h1a2.2 2.2 0 0 1 2.2 2.2v1c0 .58 .23 1.138 .64 1.55l.7 .7a2.2 2.2 0 0 1 0 3.12l-.7 .7a2.2 2.2 0 0 0 -.64 1.55v1a2.2 2.2 0 0 1 -2.2 2.2h-1a2.2 2.2 0 0 0 -1.55 .64l-.7 .7a2.2 2.2 0 0 1 -3.12 0l-.7 -.7a2.2 2.2 0 0 0 -1.55 -.64h-1a2.2 2.2 0 0 1 -2.2 -2.2v-1a2.2 2.2 0 0 0 -.64 -1.55l-.7 -.7a2.2 2.2 0 0 1 0 -3.12l.7 -.7a2.2 2.2 0 0 0 .64 -1.55v-1" fill="currentColor"></path></svg>
-			<span class="inline">${escapeHtml(results.data.webPages.value[i].name)}</span></a>`;
+			<span class="inline">${escapeHtml(results.data.web.results[i].title)}</span></a>`;
 		}else{
-			html += `<a href="${escapeHtml(url)}" class="primaryColor text-lg">${escapeHtml(results.data.webPages.value[i].name)}</a>`;
+			html += `<a href="${escapeHtml(url)}" class="primaryColor text-lg">${escapeHtml(results.data.web.results[i].title)}</a>`;
 		}
 
 		html += `<p class="text-green-600 text-base truncate">${escapeHtml(niceURL)}</p>
-		<p class="secondaryColor text-sm">${escapeHtml(results.data.webPages.value[i].snippet)}</p>`;
+		<p class="secondaryColor text-sm">${escapeHtml(results.data.web.results[i].description)}</p>`;
 
-		if(typeof(results.data.webPages.value[i].deepLinks) === 'object'){
+		if(typeof(results.data.web.results[i].deepLinks) === 'object'){
 			html += `<ul role="list" class="mx-auto grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-4 ml-6 mt-3">`;
-			for(let j = 0; j < results.data.webPages.value[i].deepLinks.length; j++){
-				html += `<li><a href="${escapeHtml(results.data.webPages.value[i].deepLinks[j].url)}" class="primaryColor text-base">${escapeHtml(results.data.webPages.value[i].deepLinks[j].name)}</a>`;
-				if(typeof(results.data.webPages.value[i].deepLinks[j].snippet) === 'string') html += `<p class="secondaryColor text-sm truncate">${escapeHtml(results.data.webPages.value[i].deepLinks[j].snippet)}</p>`;
+			for(let j = 0; j < results.data.web.results[i].deepLinks.length; j++){
+				html += `<li><a href="${escapeHtml(results.data.web.results[i].deepLinks[j].url)}" class="primaryColor text-base">${escapeHtml(results.data.web.results[i].deepLinks[j].name)}</a>`;
+				if(typeof(results.data.web.results[i].deepLinks[j].snippet) === 'string') html += `<p class="secondaryColor text-sm truncate">${escapeHtml(results.data.web.results[i].deepLinks[j].snippet)}</p>`;
 				html += "</li>";
 			}
 			html += "</ul>";

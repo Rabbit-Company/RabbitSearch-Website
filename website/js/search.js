@@ -25,10 +25,7 @@ search(query, category).then((data) => {
 });
 
 function search(query, type = 'general'){
-	let endpoint = "https://api.rabbitsearch.org/searchGeneral?q=";
-	if(type === 'images') endpoint = "https://api.rabbitsearch.org/searchImages?q=";
-	if(type === 'videos') endpoint = "https://api.rabbitsearch.org/searchVideos?q=";
-	if(type === 'news') endpoint = "https://api.rabbitsearch.org/searchNews?q=";
+	let endpoint = "https://api.rabbitsearch.org/search?q=";
 	return new Promise((resolve, reject) => {
 		fetch(endpoint + encodeURIComponent(query) + "&s=" + safeSearch + "&m=" + market)
 		.then((response) => response.json())
@@ -323,7 +320,7 @@ function changeCategory(selectedCategory){
 }
 
 function changeMarket(selectedMarket){
-	if(!Object.keys(availableMarkets).includes(selectedMarket)) return;
+	if(!Object.keys().includes(selectedMarket)) return;
 	if(selectedMarket === market) return;
 	localStorage.setItem('market', selectedMarket);
 	location.assign('?q=' + query);

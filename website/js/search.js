@@ -25,7 +25,7 @@ search(query, category).then((data) => {
 });
 
 function search(query, type = 'general'){
-	let endpoint = "https://api.rabbitsearch.org/search?q=";
+	let endpoint = "https://dev.api.rabbitsearch.org/search?q=";
 	return new Promise((resolve, reject) => {
 		fetch(endpoint + encodeURIComponent(query) + "&s=" + safeSearch + "&m=" + market)
 		.then((response) => response.json())

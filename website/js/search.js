@@ -329,7 +329,7 @@ function changeCategory(selectedCategory){
 }
 
 function changeMarket(selectedMarket){
-	if(!Object.keys().includes(selectedMarket)) return;
+	if(!Object.keys(availableCountries).includes(selectedMarket)) return;
 	if(selectedMarket === market) return;
 	localStorage.setItem('market', selectedMarket);
 	location.assign('?q=' + query);

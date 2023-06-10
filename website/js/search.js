@@ -205,16 +205,16 @@ function displayImageResults(results){
 		if(typeof(results.data.photos[i].photographer) === 'undefined') continue;
 		if(typeof(results.data.photos[i].photographer_url) === 'undefined') continue;
 
-		const name = escapeHtml(results.data.photos[i].alt);
+		const name = results.data.photos[i].alt;
 		html += `<li class="relative">`;
 		html += `
 			<div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus:outline-none">
-				<a href="${escapeHtml(results.data.photos[i].url)}">
-					<img src="${escapeHtml(results.data.photos[i].src.medium)}" alt="${name}" loading="lazy" class="loadedImages pointer-events-none object-cover group-hover:opacity-75">
+				<a href="${results.data.photos[i].url}">
+					<img src="${results.data.photos[i].src.medium}" alt="${name}" loading="lazy" class="loadedImages pointer-events-none object-cover group-hover:opacity-75">
 				</a>
 			</div>
-			<a href="${escapeHtml(results.data.photos[i].url)}" class="tertiaryColor mt-2 block truncate text-sm font-medium">${name}</a>
-			<p class="secondaryColor pointer-events-none block text-sm font-medium">${results.data.photos[i].width}x${results.data.photos[i].height} &middot; <a href="${results.data.photos[i].photographer_url}">${results.data.photos[i].photographer}</a></p>
+			<a href="${results.data.photos[i].url}" class="tertiaryColor mt-2 block truncate text-sm font-medium">${name}</a>
+			<a href="${results.data.photos[i].photographer_url}" class="secondaryColor block truncate text-sm font-medium">${results.data.photos[i].width}x${results.data.photos[i].height} &middot; ${results.data.photos[i].photographer}</a>
 		`;
 		html += "</li>";
 	}

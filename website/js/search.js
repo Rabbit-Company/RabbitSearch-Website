@@ -150,30 +150,18 @@ function displayGeneralResults(results){
 		if(affiliatesEnabled && typeof(affiliates[url]) !== 'undefined'){
 			html += `<a href="${affiliates[url]}" class="primaryColor text-lg">
 			<svg xmlns="http://www.w3.org/2000/svg" class="text-amber-600 align-text-bottom inline h-5 w-5" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M5 7.2a2.2 2.2 0 0 1 2.2 -2.2h1a2.2 2.2 0 0 0 1.55 -.64l.7 -.7a2.2 2.2 0 0 1 3.12 0l.7 .7c.412 .41 .97 .64 1.55 .64h1a2.2 2.2 0 0 1 2.2 2.2v1c0 .58 .23 1.138 .64 1.55l.7 .7a2.2 2.2 0 0 1 0 3.12l-.7 .7a2.2 2.2 0 0 0 -.64 1.55v1a2.2 2.2 0 0 1 -2.2 2.2h-1a2.2 2.2 0 0 0 -1.55 .64l-.7 .7a2.2 2.2 0 0 1 -3.12 0l-.7 -.7a2.2 2.2 0 0 0 -1.55 -.64h-1a2.2 2.2 0 0 1 -2.2 -2.2v-1a2.2 2.2 0 0 0 -.64 -1.55l-.7 -.7a2.2 2.2 0 0 1 0 -3.12l.7 -.7a2.2 2.2 0 0 0 .64 -1.55v-1" fill="currentColor"></path></svg>
-			<span class="inline">${escapeHtml(results.data.web.results[i].title)}</span></a>`;
+			<span class="inline">${results.data.web.results[i].title}</span></a>`;
 		}else{
-			html += `<a href="${escapeHtml(url)}" class="primaryColor text-lg"><img src="${favicon}" loading="lazy" width="16" height="16" alt="🌐" class="inline mr-2" /> ${escapeHtml(results.data.web.results[i].title)}</a>`;
+			html += `<a href="${url}" class="primaryColor text-lg"><img src="${favicon}" loading="lazy" width="16" height="16" alt="🌐" class="inline mr-2" /> ${results.data.web.results[i].title}</a>`;
 		}
 
 		let path = results.data.web.results[i].meta_url?.path;
 		if(typeof(path) === 'string' && path.length >= 2){
 			html += `<p class="text-green-600 text-base truncate">${results.data.web.results[i].meta_url?.hostname} ${path}</p>`;
 		}else{
-			html += `<p class="text-green-600 text-base truncate">${escapeHtml(niceURL)}</p>`;
+			html += `<p class="text-green-600 text-base truncate">${niceURL}</p>`;
 		}
-		html += `<p class="secondaryColor text-sm">${results.data.web.results[i].description}</p>`;
-
-		if(typeof(results.data.web.results[i].deepLinks) === 'object'){
-			html += `<ul role="list" class="mx-auto grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-4 ml-6 mt-3">`;
-			for(let j = 0; j < results.data.web.results[i].deepLinks.length; j++){
-				html += `<li><a href="${escapeHtml(results.data.web.results[i].deepLinks[j].url)}" class="primaryColor text-base">${escapeHtml(results.data.web.results[i].deepLinks[j].name)}</a>`;
-				if(typeof(results.data.web.results[i].deepLinks[j].snippet) === 'string') html += `<p class="secondaryColor text-sm truncate">${escapeHtml(results.data.web.results[i].deepLinks[j].snippet)}</p>`;
-				html += "</li>";
-			}
-			html += "</ul>";
-		}
-
-		html += "</div>";
+		html += `<p class="secondaryColor text-sm">${results.data.web.results[i].description}</p></div>`;
 	}
 	document.getElementById('results').innerHTML = html;
 	document.getElementById('footer').className = "primaryBackgroundColor";
@@ -247,7 +235,7 @@ function displayVideoResults(results){
 		if(typeof(results.data.videos.results[i].video?.thumbnail?.src) === 'undefined') continue;
 		if(typeof(results.data.videos.results[i].age) === 'undefined') continue;
 
-		const name = escapeHtml(results.data.videos.results[i].title);
+		const name = results.data.videos.results[i].title;
 		const url = results.data.videos.results[i].url;
 		let viewCount = results.data.videos.results[i].viewCount || 0;
 
@@ -255,12 +243,12 @@ function displayVideoResults(results){
 		html += `
 			<div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus:outline-none">
 				<a href="${url}">
-					<img src="${escapeHtml(results.data.videos.results[i].video.thumbnail.src)}" alt="${name}" loading="lazy" class="object-cover group-hover:opacity-75">
+					<img src="${results.data.videos.results[i].video.thumbnail.src}" alt="${name}" loading="lazy" class="object-cover group-hover:opacity-75">
 				</a>
 			</div>
 			<a href="${url}" class="tertiaryColor mt-2 block text-base font-medium truncate">${name}</a>
 			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${formatViews(viewCount)} views &middot; ${results.data.videos.results[i].age}</p>
-			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${escapeHtml(results.data.videos.results[i].meta_url?.hostname)}</p>
+			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${results.data.videos.results[i].meta_url?.hostname}</p>
 		`;
 		html += "</li>";
 	}
@@ -294,9 +282,9 @@ function displayNewsResults(results){
 		let favicon = results.data.web.results[i].meta_url?.favicon;
 
 		html += `<div>
-		<a href="${escapeHtml(results.data.news.results[i].url)}" class="primaryColor text-lg"><img src="${favicon}" loading="lazy" width="16" height="16" alt="🌐" class="inline mr-2" /> ${escapeHtml(results.data.news.results[i].title)}</a>
-		<p class="secondaryColor text-base truncate">${escapeHtml(results.data.news.results[i].meta_url.hostname)} &middot; ${results.data.news.results[i].age}</p>
-		<p class="secondaryColor text-sm">${escapeHtml(results.data.news.results[i].description)}</p>`;
+		<a href="${results.data.news.results[i].url}" class="primaryColor text-lg"><img src="${favicon}" loading="lazy" width="16" height="16" alt="🌐" class="inline mr-2" /> ${results.data.news.results[i].title}</a>
+		<p class="secondaryColor text-base truncate">${results.data.news.results[i].meta_url.hostname} &middot; ${results.data.news.results[i].age}</p>
+		<p class="secondaryColor text-sm">${results.data.news.results[i].description}</p>`;
 		html += "</div>";
 	}
 	document.getElementById('results').innerHTML = html;

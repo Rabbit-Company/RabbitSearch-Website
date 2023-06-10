@@ -336,7 +336,7 @@ function changeMarket(selectedMarket){
 }
 
 function changeSafeSearch(mode){
-	if(!['Off', 'Moderate', 'Strict'].includes(mode)) return;
+	if(!['off', 'moderate', 'strict'].includes(mode)) return;
 	if(mode === safeSearch) return;
 	localStorage.setItem('safeSearch', mode);
 	location.assign('?q=' + query);

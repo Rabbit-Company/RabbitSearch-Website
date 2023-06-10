@@ -201,7 +201,7 @@ function displayImageResults(results){
 		if(typeof(results.data.photos[i].url) === 'undefined') continue;
 		if(typeof(results.data.photos[i].width) === 'undefined') continue;
 		if(typeof(results.data.photos[i].height) === 'undefined') continue;
-		if(typeof(results.data.photos[i].src?.medium) === 'undefined') continue;
+		if(typeof(results.data.photos[i].src?.large) === 'undefined') continue;
 		if(typeof(results.data.photos[i].photographer) === 'undefined') continue;
 		if(typeof(results.data.photos[i].photographer_url) === 'undefined') continue;
 
@@ -210,7 +210,7 @@ function displayImageResults(results){
 		html += `
 			<div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus:outline-none">
 				<a href="${results.data.photos[i].url}">
-					<img src="${results.data.photos[i].src.medium}" alt="${name}" loading="lazy" class="loadedImages pointer-events-none object-cover group-hover:opacity-75">
+					<img src="${results.data.photos[i].src.large}" alt="${name}" loading="lazy" class="loadedImages pointer-events-none object-cover group-hover:opacity-75">
 				</a>
 			</div>
 			<a href="${results.data.photos[i].url}" class="tertiaryColor mt-2 block truncate text-sm font-medium">${name}</a>

@@ -150,13 +150,15 @@ function displayGeneralResults(results){
 		let url = results.data.web.results[i].url;
 		let niceURL = (url[url.length - 1] === '/') ? url.slice(0, -1) : url;
 
+		let favicon = results.data.web.results[i].meta_url?.favicon;
+
 		html += "<div>";
 		if(affiliatesEnabled && typeof(affiliates[url]) !== 'undefined'){
 			html += `<a href="${affiliates[url]}" class="primaryColor text-lg">
 			<svg xmlns="http://www.w3.org/2000/svg" class="text-amber-600 align-text-bottom inline h-5 w-5" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M5 7.2a2.2 2.2 0 0 1 2.2 -2.2h1a2.2 2.2 0 0 0 1.55 -.64l.7 -.7a2.2 2.2 0 0 1 3.12 0l.7 .7c.412 .41 .97 .64 1.55 .64h1a2.2 2.2 0 0 1 2.2 2.2v1c0 .58 .23 1.138 .64 1.55l.7 .7a2.2 2.2 0 0 1 0 3.12l-.7 .7a2.2 2.2 0 0 0 -.64 1.55v1a2.2 2.2 0 0 1 -2.2 2.2h-1a2.2 2.2 0 0 0 -1.55 .64l-.7 .7a2.2 2.2 0 0 1 -3.12 0l-.7 -.7a2.2 2.2 0 0 0 -1.55 -.64h-1a2.2 2.2 0 0 1 -2.2 -2.2v-1a2.2 2.2 0 0 0 -.64 -1.55l-.7 -.7a2.2 2.2 0 0 1 0 -3.12l.7 -.7a2.2 2.2 0 0 0 .64 -1.55v-1" fill="currentColor"></path></svg>
 			<span class="inline">${escapeHtml(results.data.web.results[i].title)}</span></a>`;
 		}else{
-			html += `<a href="${escapeHtml(url)}" class="primaryColor text-lg">${escapeHtml(results.data.web.results[i].title)}</a>`;
+			html += `<a href="${escapeHtml(url)}" class="primaryColor text-lg"><img src="${favicon}" /> ${escapeHtml(results.data.web.results[i].title)}</a>`;
 		}
 
 		let path = results.data.web.results[i].meta_url?.path;

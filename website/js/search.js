@@ -177,6 +177,7 @@ function displayGeneralResults(results){
 }
 
 function displayImageResults(results){
+
 	if(results.error === 429){
 		changeDialog(2, "You are sending too many requests! Please wait 10 seconds before executing this action again.");
 		show('dialog');
@@ -184,40 +185,31 @@ function displayImageResults(results){
 	}
 
 	if(results.error !== 0) return;
-	if(typeof(results.data?.value) !== 'object') return;
+	if(typeof(results.data?.photos) !== 'object') return;
 	document.getElementById('results').className = "max-w-7xl w-full space-y-6";
 
 	let html = "";
-
-	let totalEstimatedMatches = results.data.totalEstimatedMatches || 0;
-	html += `<p class="secondaryColor text-sm">About ${totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
-
-	if(results.data.queryContext.alterationDisplayQuery !== results.data.queryContext.originalQuery && !results.data.queryContext.originalQuery.startsWith('"')){
-		html += `<div><span class="secondaryColor text-base">Including results for <a href="?q=${results.data.queryContext.alterationDisplayQuery}" class="primaryColor text-base">${results.data.queryContext.alterationDisplayQuery}</a>.</span><br/>`;
-		html += `<span class="secondaryColor text-sm">Do you want results only for <a href="?q=&quot;${escapeHtml(results.data.queryContext.originalQuery)}&quot;" class="primaryColor text-sm">${escapeHtml(results.data.queryContext.originalQuery)}</a>?</span></div>`;
-	}
+	html += `<p class="secondaryColor text-sm">Response took ${(querySpeed / 1000).toFixed(2)} seconds</p>`;
 
 	html += `<ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">`;
-	for(let i = 0; i < results.data.value.length; i++){
+	for(let i = 0; i < results.data.photos.length; i++){
 
-		if(typeof(results.data.value[i].name) === 'undefined') continue;
-		if(typeof(results.data.value[i].contentUrl) === 'undefined') continue;
-		if(typeof(results.data.value[i].width) === 'undefined') continue;
-		if(typeof(results.data.value[i].height) === 'undefined') continue;
-		if(typeof(results.data.value[i].contentSize) === 'undefined') continue;
-		if(typeof(results.data.value[i].hostPageUrl) === 'undefined') continue;
-		if(typeof(results.data.value[i].imageId) === 'undefined') continue;
+		if(typeof(results.data.photos[i].alt) === 'undefined') continue;
+		if(typeof(results.data.photos[i].url) === 'undefined') continue;
+		if(typeof(results.data.photos[i].width) === 'undefined') continue;
+		if(typeof(results.data.photos[i].height) === 'undefined') continue;
+		if(typeof(results.data.photos[i].src?.medium) === 'undefined') continue;
 
-		const name = escapeHtml(results.data.value[i].name);
+		const name = escapeHtml(results.data.photos[i].alt);
 		html += `<li class="relative">`;
 		html += `
 			<div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus:outline-none">
-				<a href="${escapeHtml(results.data.value[i].contentUrl)}">
-					<img src="${escapeHtml(results.data.value[i].thumbnailUrl)}" alt="${name}" loading="lazy" class="loadedImages pointer-events-none object-cover group-hover:opacity-75">
+				<a href="${escapeHtml(results.data.photos[i].url)}">
+					<img src="${escapeHtml(results.data.photos[i].src.medium)}" alt="${name}" loading="lazy" class="loadedImages pointer-events-none object-cover group-hover:opacity-75">
 				</a>
 			</div>
-			<a href="${escapeHtml(results.data.value[i].hostPageUrl)}" class="tertiaryColor mt-2 block truncate text-sm font-medium">${name}</a>
-			<p class="secondaryColor pointer-events-none block text-sm font-medium">${results.data.value[i].width}x${results.data.value[i].height} (${formatBytes(results.data.value[i].contentSize.split(' ')[0])})</p>
+			<a href="${escapeHtml(results.data.photos[i].url)}" class="tertiaryColor mt-2 block truncate text-sm font-medium">${name}</a>
+			<p class="secondaryColor pointer-events-none block text-sm font-medium">${results.data.photos[i].width}x${results.data.photos[i].height}</p>
 		`;
 		html += "</li>";
 	}

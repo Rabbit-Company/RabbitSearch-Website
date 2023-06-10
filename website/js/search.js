@@ -159,8 +159,13 @@ function displayGeneralResults(results){
 			html += `<a href="${escapeHtml(url)}" class="primaryColor text-lg">${escapeHtml(results.data.web.results[i].title)}</a>`;
 		}
 
-		html += `<p class="text-green-600 text-base truncate">${escapeHtml(niceURL)}</p>
-		<p class="secondaryColor text-sm">${results.data.web.results[i].description}</p>`;
+		let path = results.data.web.results[i].meta_url?.path;
+		if(typeof(path) === 'string' && path.length >= 2){
+			html += `<p class="text-green-600 text-base truncate">${results.data.web.results[i].meta_url?.hostname} ${path}</p>`;
+		}else{
+			html += `<p class="text-green-600 text-base truncate">${escapeHtml(niceURL)}</p>`;
+		}
+		html += `<p class="secondaryColor text-sm">${results.data.web.results[i].description}</p>`;
 
 		if(typeof(results.data.web.results[i].deepLinks) === 'object'){
 			html += `<ul role="list" class="mx-auto grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-4 ml-6 mt-3">`;

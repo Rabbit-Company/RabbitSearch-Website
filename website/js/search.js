@@ -227,6 +227,7 @@ function displayImageResults(results){
 }
 
 function displayVideoResults(results){
+
 	if(results.error === 429){
 		changeDialog(2, "You are sending too many requests! Please wait 10 seconds before executing this action again.");
 		show('dialog');
@@ -234,43 +235,35 @@ function displayVideoResults(results){
 	}
 
 	if(results.error !== 0) return;
-	if(typeof(results.data?.value) !== 'object') return;
+	if(typeof(results.data?.videos?.results) !== 'object') return;
 	document.getElementById('results').className = "max-w-7xl w-full space-y-6";
 
 	let html = "";
-
-	let totalEstimatedMatches = results.data.totalEstimatedMatches || 0;
-	html += `<p class="secondaryColor text-sm">About ${totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
-
-	if(results.data.queryContext.alterationDisplayQuery !== results.data.queryContext.originalQuery && !results.data.queryContext.originalQuery.startsWith('"')){
-		html += `<div><span class="secondaryColor text-base">Including results for <a href="?q=${results.data.queryContext.alterationDisplayQuery}" class="primaryColor text-base">${results.data.queryContext.alterationDisplayQuery}</a>.</span><br/>`;
-		html += `<span class="secondaryColor text-sm">Do you want results only for <a href="?q=&quot;${escapeHtml(results.data.queryContext.originalQuery)}&quot;" class="primaryColor text-sm">${escapeHtml(results.data.queryContext.originalQuery)}</a>?</span></div>`;
-	}
+	html += `<p class="secondaryColor text-sm">Response took ${(querySpeed / 1000).toFixed(2)} seconds</p>`;
 
 	html += `<ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">`;
-	for(let i = 0; i < results.data.value.length; i++){
+	for(let i = 0; i < results.data.videos.results.length; i++){
 
-		if(typeof(results.data.value[i].name) === 'undefined') continue;
-		if(typeof(results.data.value[i].contentUrl) === 'undefined') continue;
-		if(typeof(results.data.value[i].publisher[0]?.name) === 'undefined') continue;
-		if(typeof(results.data.value[i].creator?.name) === 'undefined') continue;
-		if(typeof(results.data.value[i].thumbnailUrl) === 'undefined') continue;
-		if(typeof(results.data.value[i].datePublished) === 'undefined') continue;
+		if(typeof(results.data.videos.results[i].title) === 'undefined') continue;
+		if(typeof(results.data.videos.results[i].url) === 'undefined') continue;
+		if(typeof(results.data.videos.results[i].meta_url?.hostname) === 'undefined') continue;
+		if(typeof(results.data.videos.results[i].thumbnail?.src) === 'undefined') continue;
+		if(typeof(results.data.videos.results[i].age) === 'undefined') continue;
 
-		const name = escapeHtml(results.data.value[i].name);
-		const url = results.data.value[i].contentUrl;
-		let viewCount = results.data.value[i].viewCount || 0;
+		const name = escapeHtml(results.data.videos.results[i].title);
+		const url = results.data.videos.results[i].url;
+		let viewCount = results.data.videos.results[i].viewCount || 0;
 
 		html += `<li class="relative">`;
 		html += `
 			<div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus:outline-none">
 				<a href="${url}">
-					<img src="${escapeHtml(results.data.value[i].thumbnailUrl)}" alt="${name}" loading="lazy" class="object-cover group-hover:opacity-75">
+					<img src="${escapeHtml(results.data.videos.results[i].thumbnail.src)}" alt="${name}" loading="lazy" class="object-cover group-hover:opacity-75">
 				</a>
 			</div>
 			<a href="${url}" class="tertiaryColor mt-2 block text-base font-medium truncate">${name}</a>
-			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${formatViews(viewCount)} views &middot; ${formatPublishedDate(results.data.value[i].datePublished)}</p>
-			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${escapeHtml(results.data.value[i].publisher[0].name)} &middot; ${escapeHtml(results.data.value[i].creator.name)}</p>
+			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${formatViews(viewCount)} views &middot; ${results.data.videos.results[i].age}</p>
+			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${escapeHtml(results.data.videos.results[i].meta_url?.hostname)}</p>
 		`;
 		html += "</li>";
 	}

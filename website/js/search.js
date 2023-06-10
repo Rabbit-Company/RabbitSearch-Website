@@ -25,10 +25,10 @@ search(query, category).then((data) => {
 });
 
 function search(query, type = 'general'){
-	let endpoint = "https://api.rabbitsearch.org/searchGeneral?q=";
-	if(type === 'images') endpoint = "https://api.rabbitsearch.org/searchImages?q=";
-	if(type === 'videos') endpoint = "https://api.rabbitsearch.org/searchVideos?q=";
-	if(type === 'news') endpoint = "https://api.rabbitsearch.org/searchNews?q=";
+	let endpoint = "https://api.rabbitsearch.org/search?q=";
+
+	if(type === 'images') endpoint = "https://api.rabbitsearch.org/images?q=";
+
 	return new Promise((resolve, reject) => {
 		fetch(endpoint + encodeURIComponent(query) + "&s=" + safeSearch + "&m=" + market)
 		.then((response) => response.json())
@@ -130,56 +130,45 @@ function displayGeneralResults(results){
 	}
 
 	if(results.error !== 0) return;
-	if(typeof(results.data?.webPages?.value) !== 'object') return;
+	if(typeof(results.data?.web?.results) !== 'object') return;
 
 	let html = "";
+	html += `<p class="secondaryColor text-sm">Response took ${(querySpeed / 1000).toFixed(2)} seconds</p>`;
 
-	let totalEstimatedMatches = results.data.webPages.totalEstimatedMatches || 0;
-	html += `<p class="secondaryColor text-sm">About ${totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
+	for(let i = 0; i < results.data.web.results.length; i++){
 
-	if(typeof(results.data.queryContext.alteredQuery) === 'string'){
-		html += `<div><span class="secondaryColor text-base">Including results for <a href="?q=${results.data.queryContext.alteredQuery}" class="primaryColor text-base">${results.data.queryContext.alteredQuery}</a>.</span><br/>`;
-		html += `<span class="secondaryColor text-sm">Do you want results only for <a href="?q=&quot;${results.data.queryContext.originalQuery}&quot;" class="primaryColor text-sm">${results.data.queryContext.originalQuery}</a>?</span></div>`;
-	}
+		if(typeof(results.data.web.results[i].title) === 'undefined') continue;
+		if(typeof(results.data.web.results[i].url) === 'undefined') continue;
+		if(typeof(results.data.web.results[i].description) === 'undefined') continue;
 
-	for(let i = 0; i < results.data.webPages.value.length; i++){
-
-		if(typeof(results.data.webPages.value[i].name) === 'undefined') continue;
-		if(typeof(results.data.webPages.value[i].url) === 'undefined') continue;
-		if(typeof(results.data.webPages.value[i].snippet) === 'undefined') continue;
-
-		let url = results.data.webPages.value[i].url;
+		let url = results.data.web.results[i].url;
 		let niceURL = (url[url.length - 1] === '/') ? url.slice(0, -1) : url;
+
+		let favicon = results.data.web.results[i].meta_url?.favicon;
 
 		html += "<div>";
 		if(affiliatesEnabled && typeof(affiliates[url]) !== 'undefined'){
 			html += `<a href="${affiliates[url]}" class="primaryColor text-lg">
 			<svg xmlns="http://www.w3.org/2000/svg" class="text-amber-600 align-text-bottom inline h-5 w-5" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M5 7.2a2.2 2.2 0 0 1 2.2 -2.2h1a2.2 2.2 0 0 0 1.55 -.64l.7 -.7a2.2 2.2 0 0 1 3.12 0l.7 .7c.412 .41 .97 .64 1.55 .64h1a2.2 2.2 0 0 1 2.2 2.2v1c0 .58 .23 1.138 .64 1.55l.7 .7a2.2 2.2 0 0 1 0 3.12l-.7 .7a2.2 2.2 0 0 0 -.64 1.55v1a2.2 2.2 0 0 1 -2.2 2.2h-1a2.2 2.2 0 0 0 -1.55 .64l-.7 .7a2.2 2.2 0 0 1 -3.12 0l-.7 -.7a2.2 2.2 0 0 0 -1.55 -.64h-1a2.2 2.2 0 0 1 -2.2 -2.2v-1a2.2 2.2 0 0 0 -.64 -1.55l-.7 -.7a2.2 2.2 0 0 1 0 -3.12l.7 -.7a2.2 2.2 0 0 0 .64 -1.55v-1" fill="currentColor"></path></svg>
-			<span class="inline">${escapeHtml(results.data.webPages.value[i].name)}</span></a>`;
+			<span class="inline">${results.data.web.results[i].title}</span></a>`;
 		}else{
-			html += `<a href="${escapeHtml(url)}" class="primaryColor text-lg">${escapeHtml(results.data.webPages.value[i].name)}</a>`;
+			html += `<a href="${url}" class="primaryColor text-lg"><img src="${favicon}" loading="lazy" width="16" height="16" alt="🌐" class="inline mr-2" /> ${results.data.web.results[i].title}</a>`;
 		}
 
-		html += `<p class="text-green-600 text-base truncate">${escapeHtml(niceURL)}</p>
-		<p class="secondaryColor text-sm">${escapeHtml(results.data.webPages.value[i].snippet)}</p>`;
-
-		if(typeof(results.data.webPages.value[i].deepLinks) === 'object'){
-			html += `<ul role="list" class="mx-auto grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-4 ml-6 mt-3">`;
-			for(let j = 0; j < results.data.webPages.value[i].deepLinks.length; j++){
-				html += `<li><a href="${escapeHtml(results.data.webPages.value[i].deepLinks[j].url)}" class="primaryColor text-base">${escapeHtml(results.data.webPages.value[i].deepLinks[j].name)}</a>`;
-				if(typeof(results.data.webPages.value[i].deepLinks[j].snippet) === 'string') html += `<p class="secondaryColor text-sm truncate">${escapeHtml(results.data.webPages.value[i].deepLinks[j].snippet)}</p>`;
-				html += "</li>";
-			}
-			html += "</ul>";
+		let path = results.data.web.results[i].meta_url?.path;
+		if(typeof(path) === 'string' && path.length >= 2){
+			html += `<p class="text-green-600 text-base truncate">${results.data.web.results[i].meta_url?.hostname} ${path}</p>`;
+		}else{
+			html += `<p class="text-green-600 text-base truncate">${niceURL}</p>`;
 		}
-
-		html += "</div>";
+		html += `<p class="secondaryColor text-sm">${results.data.web.results[i].description}</p></div>`;
 	}
 	document.getElementById('results').innerHTML = html;
 	document.getElementById('footer').className = "primaryBackgroundColor";
 }
 
 function displayImageResults(results){
+
 	if(results.error === 429){
 		changeDialog(2, "You are sending too many requests! Please wait 10 seconds before executing this action again.");
 		show('dialog');
@@ -187,40 +176,33 @@ function displayImageResults(results){
 	}
 
 	if(results.error !== 0) return;
-	if(typeof(results.data?.value) !== 'object') return;
+	if(typeof(results.data?.photos) !== 'object') return;
 	document.getElementById('results').className = "max-w-7xl w-full space-y-6";
 
 	let html = "";
-
-	let totalEstimatedMatches = results.data.totalEstimatedMatches || 0;
-	html += `<p class="secondaryColor text-sm">About ${totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
-
-	if(results.data.queryContext.alterationDisplayQuery !== results.data.queryContext.originalQuery && !results.data.queryContext.originalQuery.startsWith('"')){
-		html += `<div><span class="secondaryColor text-base">Including results for <a href="?q=${results.data.queryContext.alterationDisplayQuery}" class="primaryColor text-base">${results.data.queryContext.alterationDisplayQuery}</a>.</span><br/>`;
-		html += `<span class="secondaryColor text-sm">Do you want results only for <a href="?q=&quot;${escapeHtml(results.data.queryContext.originalQuery)}&quot;" class="primaryColor text-sm">${escapeHtml(results.data.queryContext.originalQuery)}</a>?</span></div>`;
-	}
+	html += `<p class="secondaryColor text-sm">Response took ${(querySpeed / 1000).toFixed(2)} seconds</p>`;
 
 	html += `<ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">`;
-	for(let i = 0; i < results.data.value.length; i++){
+	for(let i = 0; i < results.data.photos.length; i++){
 
-		if(typeof(results.data.value[i].name) === 'undefined') continue;
-		if(typeof(results.data.value[i].contentUrl) === 'undefined') continue;
-		if(typeof(results.data.value[i].width) === 'undefined') continue;
-		if(typeof(results.data.value[i].height) === 'undefined') continue;
-		if(typeof(results.data.value[i].contentSize) === 'undefined') continue;
-		if(typeof(results.data.value[i].hostPageUrl) === 'undefined') continue;
-		if(typeof(results.data.value[i].imageId) === 'undefined') continue;
+		if(typeof(results.data.photos[i].alt) === 'undefined') continue;
+		if(typeof(results.data.photos[i].url) === 'undefined') continue;
+		if(typeof(results.data.photos[i].width) === 'undefined') continue;
+		if(typeof(results.data.photos[i].height) === 'undefined') continue;
+		if(typeof(results.data.photos[i].src?.large) === 'undefined') continue;
+		if(typeof(results.data.photos[i].photographer) === 'undefined') continue;
+		if(typeof(results.data.photos[i].photographer_url) === 'undefined') continue;
 
-		const name = escapeHtml(results.data.value[i].name);
+		const name = results.data.photos[i].alt;
 		html += `<li class="relative">`;
 		html += `
 			<div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus:outline-none">
-				<a href="${escapeHtml(results.data.value[i].contentUrl)}">
-					<img src="${escapeHtml(results.data.value[i].thumbnailUrl)}" alt="${name}" loading="lazy" class="loadedImages pointer-events-none object-cover group-hover:opacity-75">
+				<a href="${results.data.photos[i].url}">
+					<img src="${results.data.photos[i].src.large}" alt="${name}" loading="lazy" class="loadedImages pointer-events-none object-cover group-hover:opacity-75">
 				</a>
 			</div>
-			<a href="${escapeHtml(results.data.value[i].hostPageUrl)}" class="tertiaryColor mt-2 block truncate text-sm font-medium">${name}</a>
-			<p class="secondaryColor pointer-events-none block text-sm font-medium">${results.data.value[i].width}x${results.data.value[i].height} (${formatBytes(results.data.value[i].contentSize.split(' ')[0])})</p>
+			<a href="${results.data.photos[i].url}" class="tertiaryColor mt-2 block truncate text-sm font-medium">${name}</a>
+			<a href="${results.data.photos[i].photographer_url}" class="secondaryColor block truncate text-sm font-medium">${results.data.photos[i].width}x${results.data.photos[i].height} &middot; ${results.data.photos[i].photographer}</a>
 		`;
 		html += "</li>";
 	}
@@ -230,6 +212,7 @@ function displayImageResults(results){
 }
 
 function displayVideoResults(results){
+
 	if(results.error === 429){
 		changeDialog(2, "You are sending too many requests! Please wait 10 seconds before executing this action again.");
 		show('dialog');
@@ -237,43 +220,36 @@ function displayVideoResults(results){
 	}
 
 	if(results.error !== 0) return;
-	if(typeof(results.data?.value) !== 'object') return;
+	if(typeof(results.data?.videos?.results) !== 'object') return;
 	document.getElementById('results').className = "max-w-7xl w-full space-y-6";
 
 	let html = "";
-
-	let totalEstimatedMatches = results.data.totalEstimatedMatches || 0;
-	html += `<p class="secondaryColor text-sm">About ${totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
-
-	if(results.data.queryContext.alterationDisplayQuery !== results.data.queryContext.originalQuery && !results.data.queryContext.originalQuery.startsWith('"')){
-		html += `<div><span class="secondaryColor text-base">Including results for <a href="?q=${results.data.queryContext.alterationDisplayQuery}" class="primaryColor text-base">${results.data.queryContext.alterationDisplayQuery}</a>.</span><br/>`;
-		html += `<span class="secondaryColor text-sm">Do you want results only for <a href="?q=&quot;${escapeHtml(results.data.queryContext.originalQuery)}&quot;" class="primaryColor text-sm">${escapeHtml(results.data.queryContext.originalQuery)}</a>?</span></div>`;
-	}
+	html += `<p class="secondaryColor text-sm">Response took ${(querySpeed / 1000).toFixed(2)} seconds</p>`;
 
 	html += `<ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">`;
-	for(let i = 0; i < results.data.value.length; i++){
+	for(let i = 0; i < results.data.videos.results.length; i++){
 
-		if(typeof(results.data.value[i].name) === 'undefined') continue;
-		if(typeof(results.data.value[i].contentUrl) === 'undefined') continue;
-		if(typeof(results.data.value[i].publisher[0]?.name) === 'undefined') continue;
-		if(typeof(results.data.value[i].creator?.name) === 'undefined') continue;
-		if(typeof(results.data.value[i].thumbnailUrl) === 'undefined') continue;
-		if(typeof(results.data.value[i].datePublished) === 'undefined') continue;
+		if(typeof(results.data.videos.results[i].title) === 'undefined') continue;
+		if(typeof(results.data.videos.results[i].url) === 'undefined') continue;
+		if(typeof(results.data.videos.results[i].meta_url?.hostname) === 'undefined') continue;
+		if(typeof(results.data.videos.results[i].video?.thumbnail?.src) === 'undefined') continue;
+		if(typeof(results.data.videos.results[i].age) === 'undefined') continue;
 
-		const name = escapeHtml(results.data.value[i].name);
-		const url = results.data.value[i].contentUrl;
-		let viewCount = results.data.value[i].viewCount || 0;
+		const name = results.data.videos.results[i].title;
+		const url = results.data.videos.results[i].url;
+		let viewCount = results.data.videos.results[i].viewCount || 0;
+		let favicon = results.data.videos.results[i].meta_url?.favicon;
 
 		html += `<li class="relative">`;
 		html += `
 			<div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus:outline-none">
 				<a href="${url}">
-					<img src="${escapeHtml(results.data.value[i].thumbnailUrl)}" alt="${name}" loading="lazy" class="object-cover group-hover:opacity-75">
+					<img src="${results.data.videos.results[i].video.thumbnail.src}" alt="${name}" loading="lazy" class="object-cover group-hover:opacity-75">
 				</a>
 			</div>
 			<a href="${url}" class="tertiaryColor mt-2 block text-base font-medium truncate">${name}</a>
-			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${formatViews(viewCount)} views &middot; ${formatPublishedDate(results.data.value[i].datePublished)}</p>
-			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${escapeHtml(results.data.value[i].publisher[0].name)} &middot; ${escapeHtml(results.data.value[i].creator.name)}</p>
+			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${formatViews(viewCount)} views &middot; ${results.data.videos.results[i].age}</p>
+			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate"><img src="${favicon}" loading="lazy" width="16" height="16" alt="🌐" class="inline mr-2" /> ${results.data.videos.results[i].meta_url?.hostname}</p>
 		`;
 		html += "</li>";
 	}
@@ -283,6 +259,7 @@ function displayVideoResults(results){
 }
 
 function displayNewsResults(results){
+
 	if(results.error === 429){
 		changeDialog(2, "You are sending too many requests! Please wait 10 seconds before executing this action again.");
 		show('dialog');
@@ -290,25 +267,25 @@ function displayNewsResults(results){
 	}
 
 	if(results.error !== 0) return;
-	if(typeof(results.data?.value) !== 'object') return;
+	if(typeof(results.data?.news?.results) !== 'object') return;
 
 	let html = "";
+	html += `<p class="secondaryColor text-sm">Response took ${(querySpeed / 1000).toFixed(2)} seconds</p>`;
 
-	let totalEstimatedMatches = results.data.totalEstimatedMatches || 0;
-	html += `<p class="secondaryColor text-sm">About ${totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
+	for(let i = 0; i < results.data.news.results.length; i++){
 
-	for(let i = 0; i < results.data.value.length; i++){
+		if(typeof(results.data.news.results[i].title) === 'undefined') continue;
+		if(typeof(results.data.news.results[i].url) === 'undefined') continue;
+		if(typeof(results.data.news.results[i].description) === 'undefined') continue;
+		if(typeof(results.data.news.results[i].meta_url.hostname) === 'undefined') continue;
+		if(typeof(results.data.news.results[i].age) === 'undefined') continue;
 
-		if(typeof(results.data.value[i].name) === 'undefined') continue;
-		if(typeof(results.data.value[i].url) === 'undefined') continue;
-		if(typeof(results.data.value[i].description) === 'undefined') continue;
-		if(typeof(results.data.value[i].provider[0]?.name) === 'undefined') continue;
-		if(typeof(results.data.value[i].datePublished) === 'undefined') continue;
+		let favicon = results.data.news.results[i].meta_url?.favicon;
 
 		html += `<div>
-		<a href="${escapeHtml(results.data.value[i].url)}" class="primaryColor text-lg">${escapeHtml(results.data.value[i].name)}</a>
-		<p class="secondaryColor text-base truncate">${escapeHtml(results.data.value[i].provider[0].name)} &middot; ${formatPublishedDate(results.data.value[i].datePublished)}</p>
-		<p class="secondaryColor text-sm">${escapeHtml(results.data.value[i].description)}</p>`;
+		<a href="${results.data.news.results[i].url}" class="primaryColor text-lg"><img src="${favicon}" loading="lazy" width="16" height="16" alt="🌐" class="inline mr-2" /> ${results.data.news.results[i].title}</a>
+		<p class="secondaryColor text-base truncate">${results.data.news.results[i].meta_url.hostname} &middot; ${results.data.news.results[i].age}</p>
+		<p class="secondaryColor text-sm">${results.data.news.results[i].description}</p>`;
 		html += "</div>";
 	}
 	document.getElementById('results').innerHTML = html;
@@ -323,14 +300,15 @@ function changeCategory(selectedCategory){
 }
 
 function changeMarket(selectedMarket){
-	if(!Object.keys(availableMarkets).includes(selectedMarket)) return;
+	console.log(selectedMarket);
+	if(!availableCountries.includes(selectedMarket)) return;
 	if(selectedMarket === market) return;
 	localStorage.setItem('market', selectedMarket);
 	location.assign('?q=' + query);
 }
 
 function changeSafeSearch(mode){
-	if(!['Off', 'Moderate', 'Strict'].includes(mode)) return;
+	if(!['off', 'moderate', 'strict'].includes(mode)) return;
 	if(mode === safeSearch) return;
 	localStorage.setItem('safeSearch', mode);
 	location.assign('?q=' + query);

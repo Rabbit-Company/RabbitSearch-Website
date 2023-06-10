@@ -1,56 +1,16 @@
-const availableMarkets = {
-	'es-AR': 'Argentina',
-	'en-AU': 'Australia',
-	'de-AT': 'Austria',
-	'nl-BE': 'Belgium (Dutch)',
-	'fr-BE': 'Belgium (French)',
-	'pt-BR': 'Brazil',
-	'en-CA': 'Canada (English)',
-	'fr-CA': 'Canada (French)',
-	'es-CL': 'Chile',
-	'zh-CN': "China",
-	'da-DK': 'Denmark',
-	'fi-FI': 'Finland',
-	'fr-FR': 'France',
-	'de-DE': 'Germany',
-	'zh-HK': 'Hong Kong',
-	'en-IN': 'India',
-	'en-ID': 'Indonesia',
-	'it-IT': 'Italy',
-	'ja-JP': 'Japan',
-	'ko-KR': 'Korea',
-	'en-MY': 'Malaysia',
-	'es-MX': 'Mexico',
-	'nl-NL': 'Netherlands',
-	'en-NZ': 'New Zealand',
-	'no-NO': 'Norway',
-	'en-PH': 'Philippines',
-	'pl-PL': 'Poland',
-	'ru-RU': 'Russia',
-	'en-ZA': 'South Africa',
-	'es-ES': 'Spain',
-	'sv-SE': 'Sweden',
-	'fr-CH': 'Switzerland (French)',
-	'de-CH': 'Switzerland (German)',
-	'zh-TW': 'Taiwan',
-	'tr-TR': 'Turkey',
-	'en-GB': 'United Kingdom',
-	'en-US': 'United States (English)',
-	'es-US': 'United States (Spanish)',
-	'en-WW': 'All regions'
-};
+const availableCountries = ['ar', 'au', 'at', 'be', 'br', 'ca', 'cl', 'dk', 'fi', 'fr', 'de', 'hk', 'in', 'id', 'it', 'jp', 'kr', 'my', 'mx', 'nl', 'nz', 'no', 'cn', 'pl', 'pt', 'ph', 'ru', 'sa', 'za', 'es', 'se', 'ch', 'tw', 'tr', 'gb', 'us'];
 
 function chooseMarket(){
 	let found = false;
 	for(let i = 0; i < navigator.languages.length; i++){
-		let lang = navigator.languages[i];
-		if(typeof(availableMarkets[lang]) !== 'undefined'){
-			localStorage.setItem('market', lang);
+		let country = navigator.languages[i].split('-')[1].toLowerCase();
+		if(typeof(availableCountries[country]) !== 'undefined'){
+			localStorage.setItem('market', country);
 			found = true;
 			break;
 		}
 	}
-	if(!found) localStorage.setItem('market', 'en-WW');
+	if(!found) localStorage.setItem('market', 'us');
 }
 
 function setup(){
@@ -63,7 +23,7 @@ function setup(){
 	if(market === null || typeof(market) === 'undefined') chooseMarket();
 	if(category === null || typeof(category) === 'undefined') localStorage.setItem('category', 'general');
 	if(affiliates === null || typeof(affiliates) === 'undefined') localStorage.setItem('affiliates', 'true');
-	if(safeSearch === null || typeof(safeSearch) === 'undefined') localStorage.setItem('safeSearch', 'Moderate');
+	if(safeSearch === null || typeof(safeSearch) === 'undefined') localStorage.setItem('safeSearch', 'moderate');
 
 	if(!(["dark", "tokyoNight", "monokai", "solarizedDark", "light", "blue", "nord", "dracula", "gray"].includes(theme))) localStorage.setItem('theme', 'dark');
 	if(!(["general", "images", "videos", "news"].includes(category))) localStorage.setItem('category', 'general');

@@ -291,8 +291,10 @@ function displayNewsResults(results){
 		if(typeof(results.data.news.results[i].meta_url.hostname) === 'undefined') continue;
 		if(typeof(results.data.news.results[i].age) === 'undefined') continue;
 
+		let favicon = results.data.web.results[i].meta_url?.favicon;
+
 		html += `<div>
-		<a href="${escapeHtml(results.data.news.results[i].url)}" class="primaryColor text-lg">${escapeHtml(results.data.news.results[i].title)}</a>
+		<a href="${escapeHtml(results.data.news.results[i].url)}" class="primaryColor text-lg"><img src="${favicon}" loading="lazy" width="16" height="16" alt="🌐" class="inline mr-2" /> ${escapeHtml(results.data.news.results[i].title)}</a>
 		<p class="secondaryColor text-base truncate">${escapeHtml(results.data.news.results[i].meta_url.hostname)} &middot; ${results.data.news.results[i].age}</p>
 		<p class="secondaryColor text-sm">${escapeHtml(results.data.news.results[i].description)}</p>`;
 		html += "</div>";

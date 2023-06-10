@@ -329,6 +329,7 @@ function changeCategory(selectedCategory){
 }
 
 function changeMarket(selectedMarket){
+	console.log(selectedMarket);
 	if(!Object.keys(availableCountries).includes(selectedMarket)) return;
 	if(selectedMarket === market) return;
 	localStorage.setItem('market', selectedMarket);

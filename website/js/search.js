@@ -238,6 +238,7 @@ function displayVideoResults(results){
 		const name = results.data.videos.results[i].title;
 		const url = results.data.videos.results[i].url;
 		let viewCount = results.data.videos.results[i].viewCount || 0;
+		let favicon = results.data.videos.results[i].meta_url?.favicon;
 
 		html += `<li class="relative">`;
 		html += `
@@ -248,7 +249,7 @@ function displayVideoResults(results){
 			</div>
 			<a href="${url}" class="tertiaryColor mt-2 block text-base font-medium truncate">${name}</a>
 			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${formatViews(viewCount)} views &middot; ${results.data.videos.results[i].age}</p>
-			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate">${results.data.videos.results[i].meta_url?.hostname}</p>
+			<p class="secondaryColor pointer-events-none block text-sm font-medium truncate"><img src="${favicon}" loading="lazy" width="16" height="16" alt="🌐" class="inline mr-2" /> ${results.data.videos.results[i].meta_url?.hostname}</p>
 		`;
 		html += "</li>";
 	}

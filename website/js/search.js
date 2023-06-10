@@ -130,7 +130,6 @@ function displayGeneralResults(results){
 	if(typeof(results.data?.web?.results) !== 'object') return;
 
 	let html = "";
-
 	html += `<p class="secondaryColor text-sm">Response took ${(querySpeed / 1000).toFixed(2)} seconds</p>`;
 
 	for(let i = 0; i < results.data.web.results.length; i++){
@@ -281,6 +280,7 @@ function displayVideoResults(results){
 }
 
 function displayNewsResults(results){
+
 	if(results.error === 429){
 		changeDialog(2, "You are sending too many requests! Please wait 10 seconds before executing this action again.");
 		show('dialog');
@@ -288,25 +288,23 @@ function displayNewsResults(results){
 	}
 
 	if(results.error !== 0) return;
-	if(typeof(results.data?.value) !== 'object') return;
+	if(typeof(results.data?.news?.results) !== 'object') return;
 
 	let html = "";
+	html += `<p class="secondaryColor text-sm">Response took ${(querySpeed / 1000).toFixed(2)} seconds</p>`;
 
-	let totalEstimatedMatches = results.data.totalEstimatedMatches || 0;
-	html += `<p class="secondaryColor text-sm">About ${totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
+	for(let i = 0; i < results.data.news.results.length; i++){
 
-	for(let i = 0; i < results.data.value.length; i++){
-
-		if(typeof(results.data.value[i].name) === 'undefined') continue;
-		if(typeof(results.data.value[i].url) === 'undefined') continue;
-		if(typeof(results.data.value[i].description) === 'undefined') continue;
-		if(typeof(results.data.value[i].provider[0]?.name) === 'undefined') continue;
-		if(typeof(results.data.value[i].datePublished) === 'undefined') continue;
+		if(typeof(results.data.news.results[i].title) === 'undefined') continue;
+		if(typeof(results.data.news.results[i].url) === 'undefined') continue;
+		if(typeof(results.data.news.results[i].description) === 'undefined') continue;
+		if(typeof(results.data.news.results[i].meta_url.hostname) === 'undefined') continue;
+		if(typeof(results.data.news.results[i].age) === 'undefined') continue;
 
 		html += `<div>
-		<a href="${escapeHtml(results.data.value[i].url)}" class="primaryColor text-lg">${escapeHtml(results.data.value[i].name)}</a>
-		<p class="secondaryColor text-base truncate">${escapeHtml(results.data.value[i].provider[0].name)} &middot; ${formatPublishedDate(results.data.value[i].datePublished)}</p>
-		<p class="secondaryColor text-sm">${escapeHtml(results.data.value[i].description)}</p>`;
+		<a href="${escapeHtml(results.data.news.results[i].url)}" class="primaryColor text-lg">${escapeHtml(results.data.news.results[i].title)}</a>
+		<p class="secondaryColor text-base truncate">${escapeHtml(results.data.news.results[i].meta_url.hostname)} &middot; ${results.data.news.results[i].age}</p>
+		<p class="secondaryColor text-sm">${escapeHtml(results.data.news.results[i].description)}</p>`;
 		html += "</div>";
 	}
 	document.getElementById('results').innerHTML = html;

@@ -131,15 +131,7 @@ function displayGeneralResults(results){
 
 	let html = "";
 
-	/*
-	let totalEstimatedMatches = results.data.webPages.totalEstimatedMatches || 0;
-	html += `<p class="secondaryColor text-sm">About ${totalEstimatedMatches.toLocaleString()} results (${querySpeed}ms)</p>`;
-
-	if(typeof(results.data.queryContext.alteredQuery) === 'string'){
-		html += `<div><span class="secondaryColor text-base">Including results for <a href="?q=${results.data.queryContext.alteredQuery}" class="primaryColor text-base">${results.data.queryContext.alteredQuery}</a>.</span><br/>`;
-		html += `<span class="secondaryColor text-sm">Do you want results only for <a href="?q=&quot;${results.data.queryContext.originalQuery}&quot;" class="primaryColor text-sm">${results.data.queryContext.originalQuery}</a>?</span></div>`;
-	}
-	*/
+	html += `<p class="secondaryColor text-sm">Response took ${(querySpeed / 1000).toFixed(2)} seconds</p>`;
 
 	for(let i = 0; i < results.data.web.results.length; i++){
 

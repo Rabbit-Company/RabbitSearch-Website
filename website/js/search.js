@@ -203,6 +203,7 @@ function displayImageResults(results){
 		if(typeof(results.data.photos[i].height) === 'undefined') continue;
 		if(typeof(results.data.photos[i].src?.medium) === 'undefined') continue;
 		if(typeof(results.data.photos[i].photographer) === 'undefined') continue;
+		if(typeof(results.data.photos[i].photographer_url) === 'undefined') continue;
 
 		const name = escapeHtml(results.data.photos[i].alt);
 		html += `<li class="relative">`;
@@ -213,7 +214,7 @@ function displayImageResults(results){
 				</a>
 			</div>
 			<a href="${escapeHtml(results.data.photos[i].url)}" class="tertiaryColor mt-2 block truncate text-sm font-medium">${name}</a>
-			<p class="secondaryColor pointer-events-none block text-sm font-medium">${results.data.photos[i].width}x${results.data.photos[i].height} &middot; ${results.data.photos[i].photographer}</p>
+			<p class="secondaryColor pointer-events-none block text-sm font-medium">${results.data.photos[i].width}x${results.data.photos[i].height} &middot; <a href="${results.data.photos[i].photographer_url}">${results.data.photos[i].photographer}</a></p>
 		`;
 		html += "</li>";
 	}

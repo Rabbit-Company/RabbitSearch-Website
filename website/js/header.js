@@ -3,12 +3,14 @@ const availableCountries = ['ar', 'au', 'at', 'be', 'br', 'ca', 'cl', 'dk', 'fi'
 function chooseMarket(){
 	let found = false;
 	for(let i = 0; i < navigator.languages.length; i++){
-		let country = navigator.languages[i].split('-')[1].toLowerCase();
-		if(typeof(availableCountries[country]) !== 'undefined'){
-			localStorage.setItem('market', country);
-			found = true;
-			break;
-		}
+		try{
+			let country = navigator.languages[i].split('-')[1].toLowerCase();
+			if(typeof(availableCountries[country]) !== 'undefined'){
+				localStorage.setItem('market', country);
+				found = true;
+				break;
+			}
+		}catch{}
 	}
 	if(!found) localStorage.setItem('market', 'us');
 }

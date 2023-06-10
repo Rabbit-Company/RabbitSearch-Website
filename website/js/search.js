@@ -331,8 +331,11 @@ function changeCategory(selectedCategory){
 function changeMarket(selectedMarket){
 	console.log(selectedMarket);
 	if(!Object.keys(availableCountries).includes(selectedMarket)) return;
+	console.log("1");
 	if(selectedMarket === market) return;
+	console.log("2");
 	localStorage.setItem('market', selectedMarket);
+	console.log("3");
 	location.assign('?q=' + query);
 }
 

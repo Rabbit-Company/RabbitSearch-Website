@@ -279,7 +279,7 @@ function displayNewsResults(results){
 		if(typeof(results.data.news.results[i].meta_url.hostname) === 'undefined') continue;
 		if(typeof(results.data.news.results[i].age) === 'undefined') continue;
 
-		let favicon = results.data.web.results[i].meta_url?.favicon;
+		let favicon = results.data.news.results[i].meta_url?.favicon;
 
 		html += `<div>
 		<a href="${results.data.news.results[i].url}" class="primaryColor text-lg"><img src="${favicon}" loading="lazy" width="16" height="16" alt="🌐" class="inline mr-2" /> ${results.data.news.results[i].title}</a>

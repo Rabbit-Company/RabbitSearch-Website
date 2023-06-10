@@ -3,5 +3,5 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-XSS-Protection: 1; mode=block
-  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' *.bing.net https://imgs.search.brave.com; connect-src 'self' https://api.rabbitsearch.org https://dev.api.rabbitsearch.org; base-uri 'none'; object-src 'none'; form-action 'self'; frame-ancestors 'none'; worker-src 'none';
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' https://images.pexels.com https://imgs.search.brave.com; connect-src 'self' https://api.rabbitsearch.org https://dev.api.rabbitsearch.org; base-uri 'none'; object-src 'none'; form-action 'self'; frame-ancestors 'none'; worker-src 'none';
   Permissions-Policy: interest-cohort=()

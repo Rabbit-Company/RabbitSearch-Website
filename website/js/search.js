@@ -241,7 +241,7 @@ function displayVideoResults(results){
 		if(typeof(result.meta_url?.favicon) === 'undefined') continue;
 		if(typeof(result.meta_url?.hostname) === 'undefined') continue;
 
-		let viewCount = result.viewCount || 0;
+		let viewCount = result.video?.views || 0;
 
 		html += `<li class="relative">`;
 		html += `
